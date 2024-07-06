@@ -402,6 +402,14 @@ class AppTheme {
     );
   }
 
+  static text16GraySpaced() {
+    return TextStyle(
+      fontSize: 16,
+      color: smartpayBlack.shade500,
+      height: 1.5,
+    );
+  }
+
   static text16Inverted() {
     return const TextStyle(
       fontSize: 16,
@@ -463,6 +471,14 @@ class AppTheme {
     );
   }
 
+  static text18BlueBold() {
+    return TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      color: smartpayBlue.shade500,
+    );
+  }
+
   static text18ExtraBold() {
     return const TextStyle(
       fontSize: 18,
@@ -499,6 +515,14 @@ class AppTheme {
     return const TextStyle(
       fontSize: 22,
       fontWeight: FontWeight.w900,
+      color: Colors.black,
+    );
+  }
+
+  static text28ExtraBold() {
+    return const TextStyle(
+      fontSize: 28,
+      fontWeight: FontWeight.w700,
       color: Colors.black,
     );
   }
@@ -957,8 +981,9 @@ class AppTheme {
       decoration: BoxDecoration(
         border: Border.all(style: BorderStyle.none),
         borderRadius: const BorderRadius.all(
-          Radius.circular(10.0),
+          Radius.circular(15.0),
         ),
+        color: smartpayBlack.shade900,
       ),
       child: widget,
     );
