@@ -83,9 +83,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     //Get user data from provider
-    loggedinUser = context.watch<UserProvider>().loggedinUser;
+    //loggedinUser = context.watch<UserProvider>().loggedinUser;
 
-    loggedinUser != null ? userID = loggedinUser!['id'] : userID = null;
+    //loggedinUser != null ? userID = loggedinUser!['id'] : userID = null;
 
     return MaterialApp.router(
       routerConfig: goRouter,

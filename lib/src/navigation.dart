@@ -92,8 +92,7 @@ final shellNavigatorLoansKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellLoans');
 final shellNavigatorCardsKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellCards');
-final shellNavigatorMeKey =
-    GlobalKey<NavigatorState>(debugLabel: 'shellMe');
+final shellNavigatorMeKey = GlobalKey<NavigatorState>(debugLabel: 'shellMe');
 
 final goRouter = GoRouter(
   initialLocation: '/',
@@ -264,28 +263,32 @@ final goRouter = GoRouter(
 
   // redirect to the login page if the user is not logged in
   redirect: (context, state) {
-    //Get user from provider
-    final loggedIn =
-        Provider.of<UserProvider>(context, listen: false).loggedinUser;
+    try {
+      //Get user from provider
+      final loggedIn =
+          Provider.of<UserProvider>(context, listen: false).loggedinUser;
 
-    //Initialize anonymous user routes
-    final signin = state.fullPath == '/welcome/signin';
-    final register = state.fullPath == '/welcome/register';
-    final welcome = state.fullPath == '/welcome';
+      //Initialize anonymous user routes
+      final signin = state.fullPath == '/welcome/signin';
+      final register = state.fullPath == '/welcome/register';
+      final welcome = state.fullPath == '/welcome';
 
-    //Check if user is logged in
-    if (loggedIn != null) {
-      if (signin || register || welcome) {
-        return '/';
+      //Check if user is logged in
+      if (loggedIn != null) {
+        if (signin || register || welcome) {
+          return '/';
+        } else {
+          return null;
+        }
       } else {
-        return null;
+        if (signin || register || welcome) {
+          return null;
+        } else {
+          return '/welcome';
+        }
       }
-    } else {
-      if (signin || register || welcome) {
-        return null;
-      } else {
-        return '/welcome';
-      }
+    } catch (e) {
+      debugPrint('An error occurred! $e');
     }
   },
 );

@@ -27,15 +27,15 @@ class UserProvider with ChangeNotifier {
       if (detailsFile.isEmpty) {
         debugPrint('User details file does not exist or empty');
         loggedinUser = null;
-        notifyListeners();
       } else {
         loggedinUser = detailsFile;
         //debugPrint('User details from file: $detailsFile');
-        notifyListeners();
       }
     } catch (e) {
       debugPrint("An error occurred! Error: ${e.toString()}");
     }
+
+    notifyListeners();
   }
 
   //Read email from text file on device
@@ -45,15 +45,15 @@ class UserProvider with ChangeNotifier {
       if (emailFile.isEmpty) {
         debugPrint('Email file does not exist or empty');
         emailFromFile = '';
-        notifyListeners();
       } else {
         emailFromFile = emailFile;
         //debugPrint('Email from file: $emailFromFile');
-        notifyListeners();
       }
     } catch (e) {
       debugPrint("An error occurred! Error: ${e.toString()}");
     }
+
+    notifyListeners();
   }
 
   //Read pin from text file on device
@@ -63,15 +63,15 @@ class UserProvider with ChangeNotifier {
       if (pinFile.isEmpty) {
         debugPrint('Pin file does not exist or empty');
         pin = 0;
-        notifyListeners();
       } else {
         pin = int.tryParse(pinFile);
         //debugPrint('Pin from file: $pin');
-        notifyListeners();
       }
     } catch (e) {
       debugPrint("An error occurred! Error: ${e.toString()}");
     }
+
+    notifyListeners();
   }
 
   Map? get lUser => loggedinUser;
