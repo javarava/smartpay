@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -27,13 +28,15 @@ void main() async {
       .then((_) {
     usePathUrlStrategy();
     runApp(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (_) => UserProvider(),
-          ),
-        ],
-        child: const MyApp(),
+      Phoenix(
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: (_) => UserProvider(),
+            ),
+          ],
+          child: const MyApp(),
+        ),
       ),
     );
   });
@@ -49,15 +52,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  /* //Get the credentials of the user
+  //Get the credentials of the user
   Future<void> getCurrentUser() async {
     try {
-      final user = auth.currentUser;
+      /* final user = auth.currentUser;
       if (user != null) {
         loggedinUser = user;
         userID = user.uid;
         userEmail = user.email;
-      }
+      } */
     } catch (e) {
       debugPrint('An error occurred: $e');
     }
@@ -75,14 +78,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-  } */
+  }
 
   @override
   Widget build(BuildContext context) {
     //Get user data from provider
-    loggedinUser = context.watch<UserProvider>().loggedinUser;
+    //loggedinUser = context.watch<UserProvider>().loggedinUser;
 
-    loggedinUser != null ? userID = loggedinUser!['id'] : userID = null;
+    //loggedinUser != null ? userID = loggedinUser!['id'] : userID = null;
 
     return MaterialApp.router(
       routerConfig: goRouter,

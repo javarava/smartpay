@@ -86,13 +86,13 @@ CustomTransitionPage fadeTransitionWithKey<T>({
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 final shellNavigatorHomeKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellHome');
-final shellNavigatorMeetKey =
+final shellNavigatorFinanceKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellFinance');
-final shellNavigatorMessagesKey =
+final shellNavigatorLoansKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellLoans');
-final shellNavigatorMatchesKey =
+final shellNavigatorCardsKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellCards');
-final shellNavigatorProfileKey =
+final shellNavigatorMeKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellMe');
 
 final goRouter = GoRouter(
@@ -127,7 +127,7 @@ final goRouter = GoRouter(
           ],
         ),
         StatefulShellBranch(
-          navigatorKey: shellNavigatorMeetKey,
+          navigatorKey: shellNavigatorFinanceKey,
           routes: [
             //Meet
             GoRoute(
@@ -142,7 +142,7 @@ final goRouter = GoRouter(
           ],
         ),
         StatefulShellBranch(
-          navigatorKey: shellNavigatorMessagesKey,
+          navigatorKey: shellNavigatorLoansKey,
           routes: [
             // Messages
             GoRoute(
@@ -171,7 +171,7 @@ final goRouter = GoRouter(
           ],
         ),
         StatefulShellBranch(
-          navigatorKey: shellNavigatorProfileKey,
+          navigatorKey: shellNavigatorCardsKey,
           routes: [
             // Profile
             GoRoute(
@@ -198,7 +198,7 @@ final goRouter = GoRouter(
           ],
         ),
         StatefulShellBranch(
-          navigatorKey: shellNavigatorProfileKey,
+          navigatorKey: shellNavigatorMeKey,
           routes: [
             // Profile
             GoRoute(
@@ -266,7 +266,7 @@ final goRouter = GoRouter(
   redirect: (context, state) {
     //Get user from provider
     final loggedIn =
-        Provider.of<UserProvider>(context, listen: false).isLoggedIn;
+        Provider.of<UserProvider>(context, listen: false).loggedinUser;
 
     //Initialize anonymous user routes
     final signin = state.fullPath == '/welcome/signin';
@@ -274,7 +274,7 @@ final goRouter = GoRouter(
     final welcome = state.fullPath == '/welcome';
 
     //Check if user is logged in
-    if (loggedIn != false) {
+    if (loggedIn != null) {
       if (signin || register || welcome) {
         return '/';
       } else {
