@@ -10,7 +10,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import '/providers/user_provider.dart';
 import '/src/theme.dart';
 import '/src/navigation.dart';
-import 'package:rxdart/rxdart.dart';
 
 //initialize user variables
 Map? loggedinUser;
