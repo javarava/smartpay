@@ -63,12 +63,11 @@ class _WelcomeState extends State<Welcome> {
                     items: widgetSliders,
                     carouselController: controller,
                     options: CarouselOptions(
-                      autoPlay: true,
+                      autoPlay: false,
                       enlargeCenterPage: false,
                       aspectRatio: 1.0,
                       viewportFraction: 1.0,
                       autoPlayInterval: const Duration(seconds: 8),
-                      //clipBehavior: Clip.none,
                       disableCenter: true,
                       onPageChanged: (index, reason) {
                         setState(() {
@@ -85,7 +84,8 @@ class _WelcomeState extends State<Welcome> {
                     (entry) {
                       return GestureDetector(
                         onTap: () => controller.animateToPage(entry.key),
-                        child: current == entry.key //Check if entry is the current slide
+                        child: current ==
+                                entry.key //Check if entry is the current slide
                             ? Container(
                                 width: 30.0,
                                 height: 6.0,

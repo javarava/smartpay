@@ -243,19 +243,24 @@ class AppTheme {
   }
 
   static sliverAppBarBackLeading(context) {
-    return InkWell(
-      child: Container(
-        decoration: grey1cir10BoxDecoration(),
-        padding: const EdgeInsets.all(10),
-        child: const Icon(
-          Icons.chevron_left,
-          color: Colors.white,
-          size: 28,
+    return Row(
+      children: [
+        const SizedBox(width: 10),
+        InkWell(
+          child: Container(
+            decoration: grey1cir10BoxDecoration(),
+            padding: const EdgeInsets.fromLTRB(9,10,9,10),
+            child:  Icon(
+              Icons.chevron_left,
+              color: smartpayBlack.shade700,
+              //size: 28,
+            ),
+          ),
+          onTap: () {
+            Navigator.of(context).pop();
+          },
         ),
-      ),
-      onTap: () {
-        Navigator.of(context).pop();
-      },
+      ],
     );
   }
 
@@ -449,10 +454,10 @@ class AppTheme {
     );
   }
 
-  static text16Grey700() {
+  static text16Grey400() {
     return TextStyle(
       fontSize: 16,
-      color: Colors.grey[700],
+      color: smartpayBlack.shade400,
     );
   }
 
@@ -642,10 +647,10 @@ class AppTheme {
     return BoxDecoration(
       border: Border.all(
         width: 1,
-        color: smartpayBlack.shade400,
+        color: smartpayBlack.shade200,
       ),
       borderRadius: const BorderRadius.all(
-        Radius.circular(10),
+        Radius.circular(15),
       ),
     );
   }

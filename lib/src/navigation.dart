@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '/providers/user_provider.dart';
 import '/main.dart';
 import '/routes/welcome.dart';
-import '/routes/register.dart';
+import '../routes/signup.dart';
 import '/routes/signin.dart';
 import '/routes/error.dart';
 import '/routes/home.dart';
@@ -236,7 +236,7 @@ final goRouter = GoRouter(
       routes: [
         GoRoute(
           path: 'signin',
-          pageBuilder: (context, state) => slideDownToUpTransition(
+          pageBuilder: (context, state) => slideRightToLeftTransition(
             context: context,
             state: state,
             key: UniqueKey(),
@@ -244,12 +244,12 @@ final goRouter = GoRouter(
           ),
         ),
         GoRoute(
-          path: 'register',
-          pageBuilder: (context, state) => slideDownToUpTransition(
+          path: 'signup',
+          pageBuilder: (context, state) => slideRightToLeftTransition(
             context: context,
             state: state,
             key: UniqueKey(),
-            child: const Register(),
+            child: const SignUp(),
           ),
         ),
       ],
@@ -270,18 +270,18 @@ final goRouter = GoRouter(
 
       //Initialize anonymous user routes
       final signin = state.fullPath == '/welcome/signin';
-      final register = state.fullPath == '/welcome/register';
+      final signup = state.fullPath == '/welcome/signup';
       final welcome = state.fullPath == '/welcome';
 
       //Check if user is logged in or not and redirect accordingly
       if (loggedIn != null) {
-        if (signin || register || welcome) {
+        if (signin || signup || welcome) {
           return '/';
         } else {
           return null;
         }
       } else {
-        if (signin || register || welcome) {
+        if (signin || signup || welcome) {
           return null;
         } else {
           return '/welcome';
