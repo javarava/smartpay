@@ -273,7 +273,7 @@ final goRouter = GoRouter(
       final register = state.fullPath == '/welcome/register';
       final welcome = state.fullPath == '/welcome';
 
-      //Check if user is logged in
+      //Check if user is logged in or not and redirect accordingly
       if (loggedIn != null) {
         if (signin || register || welcome) {
           return '/';
