@@ -175,7 +175,7 @@ class _ScaffoldWithNavigationBarState extends State<ScaffoldWithNavigationBar> {
         selectedColor: smartpayBlack.shade900,
         strokeColor: smartpayBlack.shade800,
         unSelectedColor: smartpayBlack.shade500,
-        backgroundColor: smartpayBlack.shade50,
+        backgroundColor: smartpayBlack.shade100,
         bubbleCurve: Curves.elasticIn,
         currentIndex: selectedIndex,
         onTap: onDestinationSelecteds,

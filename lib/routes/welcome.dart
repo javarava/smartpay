@@ -55,10 +55,12 @@ class _WelcomeState extends State<Welcome> {
                   },
                 ),
 
+                //scrollItem1(),
+
                 //Using Carousel Sliders to display onboarding widgets
 
                 SizedBox(
-                  height: 600,
+                  height: 530,
                   child: CarouselSlider(
                     items: widgetSliders,
                     carouselController: controller,
@@ -114,7 +116,7 @@ class _WelcomeState extends State<Welcome> {
                   ).toList(),
                 ),
 
-                const SizedBox(height: 50),
+                const SizedBox(height: 20),
 
                 //REGISTER
                 Padding(
@@ -138,7 +140,7 @@ class _WelcomeState extends State<Welcome> {
                     },
                   ),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 10),
               ],
             ),
           ),
@@ -161,24 +163,27 @@ scrollItem1() {
       Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        height: 400,
+        height: 330,
         //alignment: const Alignment(0, 0),
         child: Stack(
           alignment: AlignmentDirectional.topCenter,
           clipBehavior: Clip.none,
           children: [
+            //Smartphone image
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               width: 300,
-              height: 400,
+              height: 330,
               //color: smartpayCream.shade300,
               child: const Image(
                 fit: BoxFit.fitWidth,
                 image: AssetImage('assets/images/onboarding1-phone1.png'),
               ),
             ),
+
+            //Gradient fade
             Positioned(
-              bottom: 30,
+              bottom: 0,
               child: Container(
                 width: 300,
                 height: 80,
@@ -195,11 +200,13 @@ scrollItem1() {
                 child: const SizedBox(height: 80),
               ),
             ),
+
+            //Chart Image
             const Positioned(
-              top: 45.0,
+              top: 40.0,
               child: SizedBox(
                 width: 380,
-                height: 380,
+                height: 350,
                 child: Image(
                   fit: BoxFit.fitWidth,
                   image: AssetImage('assets/images/onboarding1-charts.png'),
@@ -244,24 +251,27 @@ scrollItem2() {
       Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        height: 400,
+        height: 330,
         //alignment: const Alignment(0, 0),
         child: Stack(
           alignment: AlignmentDirectional.topCenter,
           clipBehavior: Clip.none,
           children: [
+            //Smartphone image
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               width: 300,
-              height: 400,
+              height: 330,
               //color: smartpayCream.shade300,
               child: const Image(
                 fit: BoxFit.fitWidth,
                 image: AssetImage('assets/images/onboarding2-phone1.png'),
               ),
             ),
+
+            //Gradient fade
             Positioned(
-              bottom: 30,
+              bottom: 0,
               child: Container(
                 width: 300,
                 height: 80,
@@ -278,11 +288,13 @@ scrollItem2() {
                 child: const SizedBox(height: 80),
               ),
             ),
+
+            //Chart Image
             const Positioned(
-              top: 45.0,
+              top: 40.0,
               child: SizedBox(
                 width: 380,
-                height: 380,
+                height: 350,
                 child: Image(
                   fit: BoxFit.fitWidth,
                   image: AssetImage('assets/images/onboarding2-charts.png'),
@@ -298,7 +310,7 @@ scrollItem2() {
         child: SizedBox(
           width: double.infinity,
           child: Text(
-            'Your transactions processed faster than ever',
+            'Your transactions are faster than ever',
             style: AppTheme.text28ExtraBold(),
             textAlign: TextAlign.center,
           ),

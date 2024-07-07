@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 MaterialColor smartpayBlack = const MaterialColor(
   0xFF000000,
   <int, Color>{
-    50: Color(0xFFEEEEEE),
+    50: Color(0xFFF8F8F8),
     100: Color(0xFFE0E0E0),
     200: Color(0xFFBDBDBD),
     300: Color(0xFF9E9E9E),
@@ -249,8 +249,8 @@ class AppTheme {
         InkWell(
           child: Container(
             decoration: grey1cir10BoxDecoration(),
-            padding: const EdgeInsets.fromLTRB(9,10,9,10),
-            child:  Icon(
+            padding: const EdgeInsets.fromLTRB(9, 10, 9, 10),
+            child: Icon(
               Icons.chevron_left,
               color: smartpayBlack.shade700,
               //size: 28,
@@ -695,199 +695,9 @@ class AppTheme {
 
   //------------------ INPUTS ------------------
 
-  static noBorderInput() {
-    return const InputDecoration(
-      border: InputBorder.none,
-      contentPadding: EdgeInsets.all(0),
-    );
-  }
-
-  static noBorderInputDecoration() {
-    return InputDecoration(
-      isDense: true,
-      border: AppTheme.noInputBorder(),
-      enabledBorder: AppTheme.noInputBorder(),
-      focusedBorder: AppTheme.noInputBorder(),
-      errorBorder: AppTheme.noInputBorder(),
-      focusedErrorBorder: AppTheme.noInputBorder(),
-      contentPadding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
-      filled: true,
-      fillColor: Colors.white,
-      alignLabelWithHint: false,
-    );
-  }
-
-  static grey1OutlinedFieldWithHint(String hintText) {
-    return InputDecoration(
-      hintText: hintText,
-      hintStyle: const TextStyle(fontSize: 12),
-      border: AppTheme.appBorderGrey1(),
-      enabledBorder: AppTheme.appEnabledBorderGrey(),
-      focusedBorder: AppTheme.appFocusedBorderGrey(),
-      contentPadding: const EdgeInsets.all(10),
-    );
-  }
-
-  static greyfilled1OutlinedFieldWoLabel() {
-    return InputDecoration(
-      border: AppTheme.appBorderGrey(),
-      enabledBorder: AppTheme.appEnabledBorderGrey(),
-      focusedBorder: AppTheme.appFocusedBorderGrey(),
-      errorBorder: AppTheme.appErrorBorderRed(),
-      focusedErrorBorder: AppTheme.appErrorBorderRed(),
-      contentPadding: const EdgeInsets.all(10),
-      filled: true,
-      fillColor: Colors.white,
-    );
-  }
-
-  static greyfilled1OutlinedField(String labelText) {
-    return InputDecoration(
-      labelText: labelText,
-      labelStyle: const TextStyle(fontSize: 14),
-      border: AppTheme.appBorderGrey(),
-      enabledBorder: AppTheme.appEnabledBorderGrey(),
-      focusedBorder: AppTheme.appFocusedBorderGrey(),
-      errorBorder: AppTheme.appErrorBorderRed(),
-      focusedErrorBorder: AppTheme.appErrorBorderRed(),
-      contentPadding: const EdgeInsets.all(10),
-      filled: true,
-      fillColor: Colors.white,
-    );
-  }
-
-  static greyfilled1OutlinedFieldDisabled(String labelText) {
-    return InputDecoration(
-      labelText: labelText,
-      labelStyle: const TextStyle(fontSize: 14),
-      border: AppTheme.appBorderGrey(),
-      enabledBorder: AppTheme.appEnabledBorderGrey(),
-      disabledBorder: AppTheme.appEnabledBorderGrey(),
-      focusedBorder: AppTheme.appFocusedBorderGrey(),
-      errorBorder: AppTheme.appErrorBorderRed(),
-      focusedErrorBorder: AppTheme.appErrorBorderRed(),
-      contentPadding: const EdgeInsets.all(10),
-      filled: true,
-      fillColor: Colors.white,
-    );
-  }
-
-  static greyfilled1OutlinedFieldWithHint(String labelText, String hintText) {
-    return InputDecoration(
-      labelText: labelText,
-      hintText: hintText,
-      labelStyle: const TextStyle(fontSize: 14),
-      border: AppTheme.appBorderGrey(),
-      enabledBorder: AppTheme.appEnabledBorderGrey(),
-      focusedBorder: AppTheme.appFocusedBorderGrey(),
-      errorBorder: AppTheme.appErrorBorderRed(),
-      focusedErrorBorder: AppTheme.appErrorBorderRed(),
-      contentPadding: const EdgeInsets.all(10),
-      filled: true,
-      fillColor: Colors.white,
-    );
-  }
-
-  static greyfilledOutlinedField(String hinttext) {
-    return InputDecoration(
-      hintText: hinttext,
-      hintStyle: const TextStyle(
-        color: Colors.grey,
-        fontSize: 14,
-      ),
-      border: AppTheme.appBorderGrey(),
-      enabledBorder: AppTheme.appEnabledBorderGrey(),
-      focusedBorder: AppTheme.appFocusedBorderGrey(),
-      errorBorder: AppTheme.appErrorBorderRed(),
-      focusedErrorBorder: AppTheme.appErrorBorderRed(),
-      contentPadding: const EdgeInsets.all(10),
-      filled: true,
-      fillColor: Colors.white,
-    );
-  }
-
-  static greyfilledOutlinedFieldWithSuffixIcon(
-      String hinttext, Icon suffixIcon, Color suffixIconColor) {
-    return InputDecoration(
-      hintText: hinttext,
-      hintStyle: const TextStyle(
-        color: Colors.grey,
-        fontSize: 14,
-      ),
-      border: AppTheme.appBorderGrey(),
-      enabledBorder: AppTheme.appEnabledBorderGrey(),
-      focusedBorder: AppTheme.appFocusedBorderGrey(),
-      errorBorder: AppTheme.appErrorBorderRed(),
-      focusedErrorBorder: AppTheme.appErrorBorderRed(),
-      contentPadding: const EdgeInsets.all(10),
-      filled: true,
-      fillColor: Colors.white,
-      suffixIcon: suffixIcon,
-      suffixIconColor: suffixIconColor,
-    );
-  }
-
-  static greyfilledOutlinedPassword(String hinttext) {
-    return InputDecoration(
-      hintText: hinttext,
-      hintStyle: const TextStyle(
-        color: Colors.grey,
-      ),
-      border: AppTheme.appBorderGrey(),
-      enabledBorder: AppTheme.appEnabledBorderGrey(),
-      focusedBorder: AppTheme.appFocusedBorderGrey(),
-      errorBorder: AppTheme.appErrorBorderRed(),
-      focusedErrorBorder: AppTheme.appErrorBorderRed(),
-      contentPadding: const EdgeInsets.all(10),
-      filled: true,
-      fillColor: Colors.white,
-    );
-  }
-
-  static greyfilledOutlinedSwitch(String hinttext) {
-    return InputDecoration(
-      hintText: hinttext,
-      hintStyle: const TextStyle(
-        color: Colors.grey,
-      ),
-      border: AppTheme.appBorderGrey(),
-      enabledBorder: AppTheme.appEnabledBorderGrey(),
-      focusedBorder: AppTheme.appFocusedBorderGrey(),
-      errorBorder: AppTheme.appErrorBorderRed(),
-      focusedErrorBorder: AppTheme.appErrorBorderRed(),
-      contentPadding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-      filled: true,
-      fillColor: Colors.white,
-    );
-  }
-
-  static greyfilledOutlinedDate(String hinttext) {
-    return InputDecoration(
-      hintText: hinttext,
-      hintStyle: const TextStyle(
-        color: Colors.grey,
-      ),
-      border: AppTheme.appBorderGrey(),
-      enabledBorder: AppTheme.appEnabledBorderGrey(),
-      focusedBorder: AppTheme.appFocusedBorderGrey(),
-      errorBorder: AppTheme.appErrorBorderRed(),
-      focusedErrorBorder: AppTheme.appErrorBorderRed(),
-      contentPadding: const EdgeInsets.all(10),
-      filled: true,
-      fillColor: Colors.white,
-      suffixIcon: const Icon(
-        Icons.calendar_month,
-        size: 18,
-        color: Color.fromARGB(255, 95, 95, 95),
-      ),
-    );
-  }
-
-  //border
-
   static noInputBorder() {
     return const OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(0.0)),
+      borderRadius: BorderRadius.all(Radius.circular(8.0)),
       borderSide: BorderSide(
         width: 0,
         //color: Colors.white,
@@ -896,70 +706,38 @@ class AppTheme {
     );
   }
 
-  static appBorderGrey1() {
-    return const OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(4.0)),
-      borderSide: BorderSide(
-        width: 1,
-        style: BorderStyle.solid,
-        color: Color.fromARGB(255, 147, 147, 147),
-      ),
+  //Input decoration
+  static smartpayInputDecoration(String hint) {
+    return InputDecoration(
+      isDense: true,
+      hintText: hint,
+      border: AppTheme.noInputBorder(),
+      enabledBorder: AppTheme.noInputBorder(),
+      focusedBorder: AppTheme.smartpayFocusedBorder(),
+      errorBorder: AppTheme.errorBorderRed(),
+      focusedErrorBorder: AppTheme.errorBorderRed(),
+      contentPadding: const EdgeInsets.all(16),
+      filled: true,
+      fillColor: smartpayBlack.shade50,
+      alignLabelWithHint: false,
     );
   }
 
-  static appBorderGrey() {
-    return const OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(4.0)),
-      borderSide: BorderSide(
-        width: 2,
-        style: BorderStyle.solid,
-        color: Color.fromARGB(255, 147, 147, 147),
-      ),
-    );
-  }
-
-  //enabledBorder
-  static appEnabledBorderGrey() {
-    return const OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(4.0)),
-      borderSide: BorderSide(
-        width: 2,
-        style: BorderStyle.solid,
-        color: Color.fromARGB(255, 147, 147, 147),
-      ),
-    );
-  }
-
-  //focusedBorder
-  static appFocusedBorderGrey() {
-    return const OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(4.0)),
-      borderSide: BorderSide(
-        width: 2,
-        style: BorderStyle.solid,
-        color: Color.fromARGB(255, 106, 106, 106),
-      ),
-    );
-  }
-
-  //focusedBorder
-  static appFocusedBorderGrey1() {
+  //Focused border
+  static smartpayFocusedBorder() {
     return OutlineInputBorder(
-      borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+      borderRadius: const BorderRadius.all(Radius.circular(8.0)),
       borderSide: BorderSide(
-        width: 2,
-        style: BorderStyle.solid,
-        color: smartpayBlack.shade400,
-      ),
+          width: 1, style: BorderStyle.solid, color: smartpayBlue.shade600),
     );
   }
 
   //errorBorder
-  static appErrorBorderRed() {
+  static errorBorderRed() {
     return const OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+      borderRadius: BorderRadius.all(Radius.circular(8.0)),
       borderSide: BorderSide(
-        width: 2,
+        width: 1,
         style: BorderStyle.solid,
         color: Colors.red,
       ),
