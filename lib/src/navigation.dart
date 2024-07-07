@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '/providers/user_provider.dart';
 import '/main.dart';
 import '/routes/welcome.dart';
-import '../routes/signup.dart';
+import '/routes/register.dart';
 import '/routes/signin.dart';
 import '/routes/error.dart';
 import '/routes/home.dart';
@@ -244,12 +244,12 @@ final goRouter = GoRouter(
           ),
         ),
         GoRoute(
-          path: 'signup',
+          path: 'register',
           pageBuilder: (context, state) => slideDownToUpTransition(
             context: context,
             state: state,
             key: UniqueKey(),
-            child: const SignUp(),
+            child: const Register(),
           ),
         ),
       ],
@@ -270,18 +270,18 @@ final goRouter = GoRouter(
 
       //Initialize anonymous user routes
       final signin = state.fullPath == '/welcome/signin';
-      final signup = state.fullPath == '/welcome/signup';
+      final register = state.fullPath == '/welcome/register';
       final welcome = state.fullPath == '/welcome';
 
       //Check if user is logged in
       if (loggedIn != null) {
-        if (signin || signup || welcome) {
+        if (signin || register || welcome) {
           return '/';
         } else {
           return null;
         }
       } else {
-        if (signin || signup || welcome) {
+        if (signin || register || welcome) {
           return null;
         } else {
           return '/welcome';
