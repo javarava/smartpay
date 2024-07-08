@@ -27,7 +27,7 @@ class Error extends StatelessWidget {
                   width: double.infinity,
                   child: Text(
                     'Something went wrong',
-                    style: AppTheme.text22ExtraBold(),
+                    style: AppTheme.text28ExtraBold(),
                   ),
                 ),
                 const SizedBox(height: 30),

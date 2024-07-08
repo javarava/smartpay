@@ -51,11 +51,9 @@ class _WelcomeState extends State<Welcome> {
                     ),
                   ),
                   onTap: () {
-                    context.go('/welcome/signin');
+                    context.go('/welcome/signup');
                   },
                 ),
-
-                //scrollItem1(),
 
                 //Using Carousel Sliders to display onboarding widgets
 
@@ -136,7 +134,7 @@ class _WelcomeState extends State<Welcome> {
                       ),
                     ),
                     onTap: () {
-                      context.go('/welcome/signin');
+                      context.go('/welcome/signup');
                     },
                   ),
                 ),

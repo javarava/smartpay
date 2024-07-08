@@ -266,38 +266,6 @@ class AppTheme {
 
   //------------------ TEXTSTYLES ------------------
 
-  static text9() {
-    return const TextStyle(
-      fontSize: 9,
-    );
-  }
-
-  static text9Bold() {
-    return const TextStyle(
-      fontSize: 9,
-      fontWeight: FontWeight.bold,
-    );
-  }
-
-  static text10() {
-    return const TextStyle(
-      fontSize: 10,
-    );
-  }
-
-  static text11() {
-    return const TextStyle(
-      fontSize: 11,
-    );
-  }
-
-  static text11Bold() {
-    return const TextStyle(
-      fontSize: 11,
-      fontWeight: FontWeight.bold,
-    );
-  }
-
   static text12() {
     return const TextStyle(
       fontSize: 12,
@@ -325,30 +293,10 @@ class AppTheme {
     );
   }
 
-  static text12Red() {
-    return const TextStyle(
-      fontSize: 12,
-      color: Colors.red,
-    );
-  }
-
   static text12Grey500() {
     return TextStyle(
       fontSize: 12,
       color: Colors.grey[500],
-    );
-  }
-
-  static text13() {
-    return const TextStyle(
-      fontSize: 13,
-    );
-  }
-
-  static text13Bold() {
-    return const TextStyle(
-      fontSize: 13,
-      fontWeight: FontWeight.bold,
     );
   }
 
@@ -362,41 +310,6 @@ class AppTheme {
     return const TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.bold,
-    );
-  }
-
-  static text14Inverted() {
-    return const TextStyle(
-      fontSize: 14,
-      color: Colors.white,
-    );
-  }
-
-  static text14InvertedBold() {
-    return const TextStyle(
-      fontSize: 14,
-      color: Colors.white,
-      fontWeight: FontWeight.bold,
-    );
-  }
-
-  static text15() {
-    return const TextStyle(
-      fontSize: 15,
-    );
-  }
-
-  static text15Bold() {
-    return const TextStyle(
-      fontSize: 15,
-      fontWeight: FontWeight.bold,
-    );
-  }
-
-  static text15Grey700() {
-    return TextStyle(
-      fontSize: 15,
-      color: Colors.grey[700],
     );
   }
 
@@ -415,34 +328,11 @@ class AppTheme {
     );
   }
 
-  static text16Inverted() {
-    return const TextStyle(
-      fontSize: 16,
-      color: Colors.white,
-    );
-  }
-
-  static text16InvertedBold() {
-    return const TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
-    );
-  }
-
   static text16Bold() {
     return const TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.bold,
       color: Colors.black,
-    );
-  }
-
-  static text16RedBold() {
-    return const TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.bold,
-      color: Colors.red,
     );
   }
 
@@ -458,6 +348,14 @@ class AppTheme {
     return TextStyle(
       fontSize: 16,
       color: smartpayBlack.shade400,
+    );
+  }
+
+  static text16BlueBold() {
+    return TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+      color: smartpayBlue.shade900,
     );
   }
 
@@ -480,7 +378,7 @@ class AppTheme {
     return TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.bold,
-      color: smartpayBlue.shade500,
+      color: smartpayBlue.shade900,
     );
   }
 
@@ -508,22 +406,6 @@ class AppTheme {
     );
   }
 
-  static text20ExtraBold() {
-    return const TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.w900,
-      color: Colors.black,
-    );
-  }
-
-  static text22ExtraBold() {
-    return const TextStyle(
-      fontSize: 22,
-      fontWeight: FontWeight.w900,
-      color: Colors.black,
-    );
-  }
-
   static text28ExtraBold() {
     return const TextStyle(
       fontSize: 28,
@@ -532,114 +414,11 @@ class AppTheme {
     );
   }
 
-  static text18BoldInvertedShadow() {
+  static text28BlueExtraBold() {
     return TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
-      shadows: <Shadow>[
-        Shadow(
-          offset: const Offset(2.0, 2.0),
-          blurRadius: 3.0,
-          color: smartpayBlack.shade300,
-        ),
-      ],
-    );
-  }
-
-  static text18InvertedExtraBoldShadow() {
-    return TextStyle(
-      fontSize: 18,
-      color: Colors.white,
-      fontWeight: FontWeight.w900,
-      shadows: <Shadow>[
-        Shadow(
-          offset: const Offset(2.0, 2.0),
-          blurRadius: 3.0,
-          color: smartpayBlack.shade300,
-        ),
-      ],
-    );
-  }
-
-  static text20Grey700Bold() {
-    return TextStyle(
-      fontSize: 20,
-      color: smartpayBlack.shade700,
-      fontWeight: FontWeight.bold,
-    );
-  }
-
-  static text22ExtraBoldShadow() {
-    return const TextStyle(
-      fontSize: 22,
-      fontWeight: FontWeight.w900,
-      shadows: <Shadow>[
-        Shadow(
-          offset: Offset(2.0, 2.0),
-          blurRadius: 3.0,
-          color: Colors.white,
-        ),
-      ],
-    );
-  }
-
-  static text22InvertedExtraBoldShadow() {
-    return TextStyle(
-      fontSize: 22,
-      color: Colors.white,
-      fontWeight: FontWeight.w900,
-      shadows: <Shadow>[
-        Shadow(
-          offset: const Offset(3.0, 3.0),
-          blurRadius: 5.0,
-          color: smartpayBlack.shade300,
-        ),
-      ],
-    );
-  }
-
-  static text38InvertedExtraBoldShadow() {
-    return TextStyle(
-      fontSize: 38,
-      color: Colors.white,
-      fontWeight: FontWeight.w900,
-      shadows: [
-        Shadow(
-            offset: const Offset(2.0, 2.0),
-            blurRadius: 3.0,
-            color: smartpayBlack.shade300),
-      ],
-    );
-  }
-
-  static text44ExtraBoldShadow() {
-    return TextStyle(
-      fontSize: 44,
-      fontWeight: FontWeight.w900,
-      color: smartpayBlack.shade900,
-      shadows: const [
-        Shadow(
-          offset: Offset(2.0, 2.0),
-          blurRadius: 3.0,
-          color: Colors.white,
-        ),
-      ],
-    );
-  }
-
-  static text44IdnvertedExtraBoldShaow() {
-    return TextStyle(
-      fontSize: 44,
-      color: Colors.white,
-      fontWeight: FontWeight.w900,
-      shadows: [
-        Shadow(
-          offset: const Offset(2.0, 2.0),
-          blurRadius: 3.0,
-          color: smartpayBlack.shade300,
-        ),
-      ],
+      fontSize: 28,
+      fontWeight: FontWeight.w700,
+      color: smartpayBlue.shade900,
     );
   }
 
@@ -651,44 +430,6 @@ class AppTheme {
       ),
       borderRadius: const BorderRadius.all(
         Radius.circular(15),
-      ),
-    );
-  }
-
-  static grey2cir10BoxDecoration() {
-    return BoxDecoration(
-      border: Border.all(
-        width: 2,
-        color: const Color.fromARGB(255, 200, 200, 200),
-      ),
-      borderRadius: const BorderRadius.all(
-        Radius.circular(10),
-      ),
-    );
-  }
-
-  static grey1cir0TopOnlyBoxDecoration() {
-    return BoxDecoration(
-      border: Border(
-        top: BorderSide(
-          width: 1.0,
-          color: smartpayBlack.shade300,
-        ),
-      ),
-    );
-  }
-
-  static grey1cir0TopAndBottomDecoration() {
-    return BoxDecoration(
-      border: Border(
-        top: BorderSide(
-          width: 1.0,
-          color: smartpayBlack.shade300,
-        ),
-        bottom: BorderSide(
-          width: 1.0,
-          color: smartpayBlack.shade300,
-        ),
       ),
     );
   }
@@ -716,7 +457,7 @@ class AppTheme {
       focusedBorder: AppTheme.smartpayFocusedBorder(),
       errorBorder: AppTheme.errorBorderRed(),
       focusedErrorBorder: AppTheme.errorBorderRed(),
-      contentPadding: const EdgeInsets.all(16),
+      contentPadding: const EdgeInsets.all(20),
       filled: true,
       fillColor: smartpayBlack.shade50,
       alignLabelWithHint: false,
@@ -728,7 +469,10 @@ class AppTheme {
     return OutlineInputBorder(
       borderRadius: const BorderRadius.all(Radius.circular(8.0)),
       borderSide: BorderSide(
-          width: 1, style: BorderStyle.solid, color: smartpayBlue.shade600),
+        width: 1,
+        style: BorderStyle.solid,
+        color: smartpayBlue.shade600,
+      ),
     );
   }
 
@@ -760,7 +504,7 @@ class AppTheme {
   static blackContainer(Widget widget) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 15),
       decoration: BoxDecoration(
         border: Border.all(style: BorderStyle.none),
         borderRadius: const BorderRadius.all(
@@ -772,45 +516,20 @@ class AppTheme {
     );
   }
 
-  static blackGradientContainer(Widget widget) {
+  static outlinedContainer(Widget widget) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-        border: Border.all(style: BorderStyle.none),
-        borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-        gradient: LinearGradient(
-          colors: [
-            smartpayBlack.shade900,
-            smartpayBlack.shade600,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
-      child: widget,
-    );
-  }
-
-  static greyGradientContainer(Widget widget) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 15),
       decoration: BoxDecoration(
         border: Border.all(
+          width: 1,
           style: BorderStyle.solid,
-          width: 2,
-          color: smartpayBlack.shade400,
+          color: smartpayBlack.shade100,
         ),
-        borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-        gradient: LinearGradient(
-          colors: [
-            smartpayBlack.shade100,
-            smartpayBlack.shade50,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(15.0),
         ),
+        color: Colors.white,
       ),
       child: widget,
     );
@@ -827,6 +546,24 @@ class AppTheme {
       side: BorderSide(
         width: 2,
         color: smartpayBlack.shade300,
+      ),
+    );
+  }
+
+  //Gradient dividers
+  static fadeGradientDivider(Alignment begin, Alignment end) {
+    return Container(
+      width: double.infinity,
+      height: 2,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            smartpayBlack.shade100,
+            Colors.white,
+          ],
+          begin: begin,
+          end: end,
+        ),
       ),
     );
   }
