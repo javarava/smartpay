@@ -8,6 +8,7 @@ import '/providers/user_provider.dart';
 import '/src/widgets.dart';
 import '/src/theme.dart';
 import '/src/datastorage.dart';
+import '/routes/signupotp.dart';
 
 Map? loggedinUser;
 String? userEmail;
@@ -73,7 +74,7 @@ class _SignUpState extends State<SignUp> {
                         style: AppTheme.text28ExtraBold(),
                         children: [
                           TextSpan(
-                            text: 'SmartPay \n',
+                            text: 'Smartpay \n',
                             style: AppTheme.text28BlueExtraBold(),
                           ),
                           const TextSpan(
@@ -173,6 +174,15 @@ class _SignUpState extends State<SignUp> {
                             } else {
                               debugPrint('Invalid');
                             }
+
+                            //TODO: REMOVE TEMP PUSHS
+                            Navigator.push(
+                                            context,
+                                            MaterialPageRoute<void>(
+                                              builder: (BuildContext context) =>
+                                                  const SignUpOtp(),
+                                            ),
+                                          );
                           },
                         ),
 

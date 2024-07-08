@@ -225,7 +225,7 @@ class AppTheme {
   //------------------ MAINSTYLES ------------------
 
   static appTitle() {
-    return 'SmartPay';
+    return 'Smartpay';
   }
 
   static buttonNavigationText() {
