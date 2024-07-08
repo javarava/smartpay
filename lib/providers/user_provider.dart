@@ -14,6 +14,8 @@ class UserProvider with ChangeNotifier {
   String emailFromFile = '';
   int? pin;
 
+  Map newCountry = {};
+
   UserProvider() {
     readDetailsFromFile();
     readEmailFromFile();
@@ -86,6 +88,8 @@ class UserProvider with ChangeNotifier {
 
   String get emailFF => emailFromFile;
 
+  Map get country => newCountry;
+
   //Set user
   void setUser(Map? user) {
     loggedinUser = user;
@@ -126,6 +130,12 @@ class UserProvider with ChangeNotifier {
   //Set user email
   void addUserEmail(String item) {
     userEmail = (item);
+    notifyListeners();
+  }
+
+  //Set country
+  void setNewCountry(Map item) {
+    newCountry = (item);
     notifyListeners();
   }
 }

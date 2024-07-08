@@ -121,16 +121,10 @@ class _WelcomeState extends State<Welcome> {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: InkWell(
                     child: AppTheme.blackContainer(
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 8,
-                        ),
-                        child: Text(
-                          'Get Started',
-                          style: AppTheme.text18InvertedBold(),
-                          textAlign: TextAlign.center,
-                        ),
+                      Text(
+                        'Get Started',
+                        style: AppTheme.text18InvertedBold(),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                     onTap: () {

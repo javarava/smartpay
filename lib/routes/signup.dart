@@ -22,20 +22,13 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  //Define variables
   final signUpFormKey = GlobalKey<FormBuilderState>();
   final signUpEmailFieldKey = GlobalKey<FormBuilderFieldState>();
 
-  bool autoValidate = true;
-  bool readOnly = false;
-  bool showSegmentedControl = true;
   bool emailHasError = false;
-  bool passwordHasError = false;
-
-  final passwordController = TextEditingController();
-  bool passwordVisible = true;
 
   String email = '';
-  String password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -66,25 +59,16 @@ class _SignUpState extends State<SignUp> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const SizedBox(height: 30),
-                  SizedBox(
-                    width: double.infinity,
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'Create a ',
-                        style: AppTheme.text28ExtraBold(),
-                        children: [
-                          TextSpan(
-                            text: 'Smartpay \n',
-                            style: AppTheme.text28BlueExtraBold(),
-                          ),
-                          const TextSpan(
-                            text: 'account',
-                          ),
-                        ],
-                      ),
-                    ),
+
+                  //Rich header text
+                  richHeaderTextBlueMiddle(
+                    'Create a ',
+                    'Smartpay \n',
+                    'account',
                   ),
+
                   const SizedBox(height: 30),
+
                   FormBuilder(
                     key: signUpFormKey,
                     child: Column(
@@ -129,16 +113,10 @@ class _SignUpState extends State<SignUp> {
                         //SIGN IN BUTTON
                         InkWell(
                           child: AppTheme.blackContainer(
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 15,
-                                vertical: 5,
-                              ),
-                              child: Text(
-                                'Sign Up',
-                                style: AppTheme.text18InvertedBold(),
-                                textAlign: TextAlign.center,
-                              ),
+                            Text(
+                              'Sign Up',
+                              style: AppTheme.text18InvertedBold(),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                           onTap: () async {
@@ -160,9 +138,19 @@ class _SignUpState extends State<SignUp> {
                               email = signUpFormKey.currentState!.value['email']
                                   .toString();
 
-                              password = signUpFormKey
-                                  .currentState!.value['password']
-                                  .toString();
+                              //Close Progress Dialog
+                              Navigator.of(context, rootNavigator: true).pop();
+
+                              //PUSH TO SIGNUP OTP
+                              //check if mounted
+                              if (!context.mounted) return;
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute<void>(
+                                  builder: (BuildContext context) =>
+                                      SignUpOtp(email),
+                                ),
+                              );
 
                               try {} catch (e) {
                                 //Close Progress Dialog
@@ -174,71 +162,63 @@ class _SignUpState extends State<SignUp> {
                             } else {
                               debugPrint('Invalid');
                             }
-
-                            //TODO: REMOVE TEMP PUSHS
-                            Navigator.push(
-                                            context,
-                                            MaterialPageRoute<void>(
-                                              builder: (BuildContext context) =>
-                                                  const SignUpOtp(),
-                                            ),
-                                          );
                           },
                         ),
 
                         const SizedBox(height: 40),
-
-                        Row(
-                          children: [
-                            Expanded(
-                              child: AppTheme.fadeGradientDivider(
-                                Alignment.centerRight,
-                                Alignment.centerLeft,
-                              ),
-                            ),
-                            const SizedBox(width: 20),
-                            Text(
-                              'OR',
-                              style: AppTheme.text16(),
-                            ),
-                            const SizedBox(width: 20),
-                            Expanded(
-                              child: AppTheme.fadeGradientDivider(
-                                Alignment.centerLeft,
-                                Alignment.centerRight,
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const SizedBox(height: 30),
-
-                        Row(
-                          children: [
-                            Expanded(
-                              child: AppTheme.outlinedContainer(
-                                const Image(
-                                  width: 30,
-                                  height: 30,
-                                  image: AssetImage('assets/icons/google.png'),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 20),
-                            Expanded(
-                              child: AppTheme.outlinedContainer(
-                                const Image(
-                                  width: 30,
-                                  height: 30,
-                                  image: AssetImage('assets/icons/apple.png'),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                   ),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        child: AppTheme.fadeGradientDivider(
+                          Alignment.centerRight,
+                          Alignment.centerLeft,
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      Text(
+                        'OR',
+                        style: AppTheme.text16(),
+                      ),
+                      const SizedBox(width: 20),
+                      Expanded(
+                        child: AppTheme.fadeGradientDivider(
+                          Alignment.centerLeft,
+                          Alignment.centerRight,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 30),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        child: AppTheme.outlinedContainer(
+                          const Image(
+                            width: 30,
+                            height: 30,
+                            image: AssetImage('assets/icons/google.png'),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      Expanded(
+                        child: AppTheme.outlinedContainer(
+                          const Image(
+                            width: 30,
+                            height: 30,
+                            image: AssetImage('assets/icons/apple.png'),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
                   const SizedBox(height: 50),
                   SizedBox(
                     height: 20,

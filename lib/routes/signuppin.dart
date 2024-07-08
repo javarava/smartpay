@@ -14,62 +14,38 @@ Map? loggedinUser;
 String? userEmail;
 String? userID;
 
-class SignUpOtp extends StatefulWidget {
-  final String email;
-  const SignUpOtp(this.email, {super.key});
+class SignUpPin extends StatefulWidget {
+  const SignUpPin({super.key});
 
   @override
-  State<SignUpOtp> createState() => _SignUpOtpState();
+  State<SignUpPin> createState() => _SignUpPinState();
 }
 
-class _SignUpOtpState extends State<SignUpOtp> {
-  final signUpOtpFormKey = GlobalKey<FormBuilderState>();
+class _SignUpPinState extends State<SignUpPin> {
+ 
 
   bool pinCorrect = false;
 
-  final defaultPinTheme = PinTheme(
+  final bottomOnlyPinTheme = PinTheme(
     width: 56,
     height: 56,
-    textStyle: const TextStyle(
+    textStyle: TextStyle(
       fontSize: 20,
-      color: Color.fromRGBO(30, 60, 87, 1),
+      color: smartpayBlack.shade900,
       fontWeight: FontWeight.w600,
     ),
     decoration: BoxDecoration(
-      border: Border.all(color: smartpayBlack.shade50),
-      borderRadius: BorderRadius.circular(15),
-    ),
-  );
-
-  final focusedPinTheme = PinTheme(
-    width: 56,
-    height: 56,
-    textStyle: const TextStyle(
-      fontSize: 20,
-      color: Color.fromRGBO(30, 60, 87, 1),
-      fontWeight: FontWeight.w600,
-    ),
-    decoration: BoxDecoration(
-      border: Border.all(
-        color: smartpayBlue.shade600,
-        width: 1,
-        style: BorderStyle.solid,
+      border: Border(
+        bottom: BorderSide(
+          width: 2.0,
+          color: smartpayBlack.shade900,
+        ),
       ),
-      borderRadius: BorderRadius.circular(15),
     ),
   );
 
   @override
   Widget build(BuildContext context) {
-    //Get email from passed parameter
-    String email = widget.email;
-
-    //User String split to get email doman
-    String emailDomain = email.split("@").last;
-
-    //Mask email
-    String maskedEmail = "*****@$emailDomain";
-
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
@@ -97,7 +73,7 @@ class _SignUpOtpState extends State<SignUpOtp> {
 
                   //Rich header text
                   richHeaderTextBlueMiddle(
-                    'Verify it\'s you',
+                    'Set your PIN code',
                     null,
                     null,
                   ),
@@ -106,32 +82,22 @@ class _SignUpOtpState extends State<SignUpOtp> {
 
                   SizedBox(
                     width: double.infinity,
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'We sent a code to (',
-                        style: AppTheme.text16Grey400(),
-                        children: [
-                          TextSpan(
-                            text: maskedEmail,
-                            style: AppTheme.text16(),
-                          ),
-                          const TextSpan(
-                            text: '). Enter it here to verify your identity.',
-                          ),
-                        ],
-                      ),
+                    child: Text(
+                      'We use state-of-the-art security measures to protect your information at all times',
+                      style: AppTheme.text16Grey400(),
                     ),
                   ),
 
                   const SizedBox(height: 30),
 
+                  //Using Pinput package for Pin 
                   SizedBox(
                     width: double.infinity,
                     child: Pinput(
                       length: 5,
-                      defaultPinTheme: defaultPinTheme,
-                      focusedPinTheme: focusedPinTheme,
-                      submittedPinTheme: focusedPinTheme,
+                      defaultPinTheme: bottomOnlyPinTheme,
+                      focusedPinTheme: bottomOnlyPinTheme,
+                      submittedPinTheme: bottomOnlyPinTheme,
                       inputFormatters: integerOnlyTextFormatter(),
                       validator: (s) {
                         if (s == '22222') {
@@ -158,16 +124,6 @@ class _SignUpOtpState extends State<SignUpOtp> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 30),
-
-                  SizedBox(
-                    width: double.infinity,
-                    child: Text(
-                      'Resend code in 30 secs',
-                      style: AppTheme.text18GrayExtraBold(),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
 
                   const SizedBox(height: 80),
 
@@ -176,7 +132,7 @@ class _SignUpOtpState extends State<SignUpOtp> {
                       ? InkWell(
                           child: AppTheme.blackContainer(
                             Text(
-                              'Confirm',
+                              'Create PIN',
                               style: AppTheme.text18InvertedBold(),
                               textAlign: TextAlign.center,
                             ),
@@ -202,7 +158,7 @@ class _SignUpOtpState extends State<SignUpOtp> {
                         )
                       : AppTheme.grayContainer(
                           Text(
-                            'Confirm',
+                            'Create PIN',
                             style: AppTheme.text18InvertedBold(),
                             textAlign: TextAlign.center,
                           ),

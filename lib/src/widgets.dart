@@ -479,3 +479,28 @@ integerOnlyTextFormatter() {
     //LengthLimitingTextInputFormatter(3),
   ];
 }
+
+richHeaderTextBlueMiddle(String startText, String? blueText, String? endText) {
+  return SizedBox(
+    width: double.infinity,
+    child: RichText(
+      text: TextSpan(
+        text: startText,
+        style: AppTheme.text28ExtraBold(),
+        children: [
+          blueText != null
+              ? TextSpan(
+                  text: blueText,
+                  style: AppTheme.text28BlueExtraBold(),
+                )
+              : const TextSpan(),
+          endText != null
+              ? TextSpan(
+                  text: endText,
+                )
+              : const TextSpan()
+        ],
+      ),
+    ),
+  );
+}

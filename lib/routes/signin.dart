@@ -67,14 +67,16 @@ class _SignInState extends State<SignIn> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const SizedBox(height: 30),
-                  SizedBox(
-                    width: double.infinity,
-                    child: Text(
-                      'Hi There 👋',
-                      style: AppTheme.text28ExtraBold(),
-                    ),
+
+                  //Rich header text
+                  richHeaderTextBlueMiddle(
+                    'Hi There 👋',
+                    null,
+                    null,
                   ),
+
                   const SizedBox(height: 15),
+
                   SizedBox(
                     width: double.infinity,
                     child: Text(
@@ -189,16 +191,10 @@ class _SignInState extends State<SignIn> {
                         //SIGN IN BUTTON
                         InkWell(
                           child: AppTheme.blackContainer(
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 15,
-                                vertical: 5,
-                              ),
-                              child: Text(
-                                'Sign In',
-                                style: AppTheme.text18InvertedBold(),
-                                textAlign: TextAlign.center,
-                              ),
+                            Text(
+                              'Sign In',
+                              style: AppTheme.text18InvertedBold(),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                           onTap: () async {

@@ -374,6 +374,13 @@ class AppTheme {
     );
   }
 
+  static text18Grey400() {
+    return TextStyle(
+      fontSize: 18,
+      color: smartpayBlack.shade400,
+    );
+  }
+
   static text18BlueBold() {
     return TextStyle(
       fontSize: 18,
@@ -387,6 +394,14 @@ class AppTheme {
       fontSize: 18,
       fontWeight: FontWeight.w900,
       color: Colors.black,
+    );
+  }
+
+  static text18GrayExtraBold() {
+    return TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.w900,
+      color: smartpayBlack.shade500,
     );
   }
 
@@ -464,6 +479,42 @@ class AppTheme {
     );
   }
 
+  //Input decoration with prefix
+  static smartpayInputDecorationWithPrefix(String hint, Widget prefix) {
+    return InputDecoration(
+      isDense: true,
+      prefixIcon: prefix,
+      hintText: hint,
+      border: AppTheme.noInputBorder(),
+      enabledBorder: AppTheme.noInputBorder(),
+      focusedBorder: AppTheme.smartpayFocusedBorder(),
+      errorBorder: AppTheme.errorBorderRed(),
+      focusedErrorBorder: AppTheme.errorBorderRed(),
+      contentPadding: const EdgeInsets.all(20),
+      filled: true,
+      fillColor: smartpayBlack.shade50,
+      alignLabelWithHint: false,
+    );
+  }
+
+  //Input decoration with suffix
+  static smartpayInputDecorationWithSuffix(String hint, Widget suffix) {
+    return InputDecoration(
+      isDense: true,
+      suffixIcon: suffix,
+      hintText: hint,
+      border: AppTheme.noInputBorder(),
+      enabledBorder: AppTheme.noInputBorder(),
+      focusedBorder: AppTheme.smartpayFocusedBorder(),
+      errorBorder: AppTheme.errorBorderRed(),
+      focusedErrorBorder: AppTheme.errorBorderRed(),
+      contentPadding: const EdgeInsets.all(20),
+      filled: true,
+      fillColor: smartpayBlack.shade50,
+      alignLabelWithHint: false,
+    );
+  }
+
   //Focused border
   static smartpayFocusedBorder() {
     return OutlineInputBorder(
@@ -504,13 +555,28 @@ class AppTheme {
   static blackContainer(Widget widget) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 15),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
       decoration: BoxDecoration(
         border: Border.all(style: BorderStyle.none),
         borderRadius: const BorderRadius.all(
           Radius.circular(15.0),
         ),
         color: smartpayBlack.shade900,
+      ),
+      child: widget,
+    );
+  }
+
+  static grayContainer(Widget widget) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+      decoration: BoxDecoration(
+        border: Border.all(style: BorderStyle.none),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(15.0),
+        ),
+        color: smartpayBlack.shade300,
       ),
       child: widget,
     );
