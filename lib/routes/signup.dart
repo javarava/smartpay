@@ -132,9 +132,10 @@ class _SignUpState extends State<SignUp> {
                                 false) {
                               //debugPrint('Valid');
 
-                              //Show Loading Dialog
                               //check if mounted
                               if (!context.mounted) return;
+
+                              //Show Loading Dialog
                               showLoaderDialog(context);
 
                               email = signUpFormKey.currentState!.value['email']

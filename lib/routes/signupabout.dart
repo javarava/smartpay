@@ -349,6 +349,16 @@ class _SignUpAboutState extends State<SignUpAbout> {
 
                                     //Register user with API
                                     registerUser(context, userMap);
+
+                                    //Get user data from JSON
+
+                                    //Save user data in Provider
+                                    context
+                                        .read<UserProvider>()
+                                        .setUser(userMap);
+
+                                    //Send Email to user
+                                    sendNewUserRegisterMail(userMap);
                                   } else {
                                     debugPrint('Invalid');
                                   }
@@ -556,13 +566,22 @@ countryRow(context, AssetImage flag, String countryCode, String country) {
 }
 
 //Register user function
-registerUser(context, Map<String, String> userMap) async {
+registerUser(context, userMap) async {
   try {
-    //Request a token to verify a new email address
+    //Register a new user
     var headers = {'Accept': 'application/json'};
     var request = http.Request('POST', Uri.parse('${apiURL}auth/register'));
-    request.bodyFields = userMap;
+    request.bodyFields = {
+      'full_name': userMap['full_name'],
+      'username': userMap['full_name'],
+      'email': userMap['email'],
+      'country': userMap['country'],
+      'password': userMap['password'],
+      'device_name': 'mobile'
+    };
     request.headers.addAll(headers);
+
+    debugPrint('Body fields: ${request.bodyFields}');
 
     http.StreamedResponse response = await request.send();
 
@@ -574,15 +593,6 @@ registerUser(context, Map<String, String> userMap) async {
       Map responseJson = json.decode(responseStream);
 
       debugPrint('Response JSON = $responseJson');
-
-      //Get user data from JSON
-      Map userData = responseJson['data']['user'];
-
-      //Save user data in Provider
-      context.read<UserProvider>().setUser(userData);
-
-      //Send Email to user
-      sendNewUserRegisterMail(userData);
 
       //check if mounted
       if (!context.mounted) return;
@@ -606,6 +616,8 @@ registerUser(context, Map<String, String> userMap) async {
 
       //Close Progress Dialog
       Navigator.of(context, rootNavigator: true).pop();
+
+      return;
     }
   } catch (e) {
     //check if mounted

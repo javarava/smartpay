@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
@@ -198,11 +199,26 @@ class _SignUpOtpState extends State<SignUpOtp> {
                             //check if mounted
                             if (!context.mounted) return;
 
-                            //Save email in Provider
-                            context.read<UserProvider>().addUserEmail(email);
+                            //Show Loading Dialog
+                            showLoaderDialog(context);
+
+                            //Verify email with api
+                            await verifyPinCode(context, email, token);
 
                             //Write email in file
                             writeEmail(email);
+
+                            //check if mounted
+                            if (!context.mounted) return;
+
+                            //Save email in Provider
+                            context.read<UserProvider>().addUserEmail(email);
+
+                            //check if mounted
+                            if (!context.mounted) return;
+
+                            //Close Progress Dialog
+                            Navigator.of(context, rootNavigator: true).pop();
 
                             //PUSH TO SIGNUP OTP
                             Navigator.push(
@@ -228,5 +244,54 @@ class _SignUpOtpState extends State<SignUpOtp> {
         ),
       ),
     );
+  }
+
+  //Verify email with api
+  verifyPinCode(context, email, token) async {
+    try {
+      //Request a token to verify a new email address
+      var headers = {'Accept': 'application/json'};
+      var request =
+          http.Request('POST', Uri.parse('${apiURL}auth/email/verify'));
+      request.bodyFields = {
+        'email': email,
+        'token': token,
+      };
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        String responseStream = await response.stream.bytesToString();
+        debugPrint('Response Stream = $responseStream');
+
+        Map responseJson = json.decode(responseStream);
+
+        debugPrint('Response JSON = $responseJson');
+
+        //String message = responseJson['message'];
+      } else {
+        debugPrint(response.reasonPhrase);
+
+        //Close Progress Dialog
+        //check if mounted
+        if (!context.mounted) return;
+        Navigator.of(context, rootNavigator: true).pop();
+
+        //return so other processes won't run
+        return;
+      }
+    } catch (e) {
+      //check if mounted
+      if (!context.mounted) return;
+
+      //Close Progress Dialog
+      Navigator.of(context, rootNavigator: true).pop();
+
+      debugPrint('Error: ${e.toString()}');
+
+      //return so other processes won't run
+      return;
+    }
   }
 }
