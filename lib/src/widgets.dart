@@ -7,6 +7,8 @@ import '/src/theme.dart';
 
 var nf = NumberFormat('###,###,##0.00');
 
+String apiURL = 'https://mobile-test-2d7e555a4f85.herokuapp.com/api/v1/';
+
 NumberFormat usFormat = NumberFormat.decimalPatternDigits(
   locale: 'en_us',
   decimalDigits: 2,
@@ -25,6 +27,7 @@ DateFormat dd = DateFormat('E');
 DateFormat ddm = DateFormat('d/M');
 DateFormat ddmy = DateFormat('d/M/y');
 DateFormat mrdOnly = DateFormat('a');
+DateFormat yearOnly = DateFormat('a');
 
 //Return date in format 'MMMM d, yyyy'
 String displayMediumDate(date) {

@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';

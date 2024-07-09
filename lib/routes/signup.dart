@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:go_router/go_router.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -7,7 +9,7 @@ import 'package:provider/provider.dart';
 import '/providers/user_provider.dart';
 import '/src/widgets.dart';
 import '/src/theme.dart';
-import '/src/datastorage.dart';
+import '/src/emails.dart';
 import '/routes/signupotp.dart';
 
 Map? loggedinUser;
@@ -92,7 +94,7 @@ class _SignUpState extends State<SignUp> {
                               ],
                             ),
                             onChanged: (val) {
-                              //Check if email is valid
+                              //Check if email supplied is valid
                               setState(
                                 () {
                                   emailHasError = !(signUpFormKey
@@ -102,7 +104,7 @@ class _SignUpState extends State<SignUp> {
                                 },
                               );
                             },
-                            // set keyboard tyle
+                            // Set keyboard style
                             keyboardType: TextInputType.emailAddress,
                             textInputAction: TextInputAction.next,
                           ),
@@ -138,21 +140,62 @@ class _SignUpState extends State<SignUp> {
                               email = signUpFormKey.currentState!.value['email']
                                   .toString();
 
-                              //Close Progress Dialog
-                              Navigator.of(context, rootNavigator: true).pop();
+                              try {
+                                //Request a token to verify a new email address
+                                var headers = {'Accept': 'application/json'};
+                                var request = http.Request(
+                                    'POST', Uri.parse('${apiURL}auth/email'));
+                                request.bodyFields = {'email': email};
+                                request.headers.addAll(headers);
 
-                              //PUSH TO SIGNUP OTP
-                              //check if mounted
-                              if (!context.mounted) return;
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute<void>(
-                                  builder: (BuildContext context) =>
-                                      SignUpOtp(email),
-                                ),
-                              );
+                                http.StreamedResponse response =
+                                    await request.send();
 
-                              try {} catch (e) {
+                                if (response.statusCode == 200) {
+                                  String responseStream =
+                                      await response.stream.bytesToString();
+                                  debugPrint(
+                                      'Response Stream = $responseStream');
+
+                                  Map responseJson =
+                                      json.decode(responseStream);
+
+                                  debugPrint('Response JSON = $responseJson');
+
+                                  String token = responseJson['data']['token'];
+
+                                  //Send Email to user
+                                  sendNewUserTokenMail(email, token);
+
+                                  //check if mounted
+                                  if (!context.mounted) return;
+
+                                  //Close Progress Dialog
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
+
+                                  //PUSH TO SIGNUP OTP
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute<void>(
+                                      builder: (BuildContext context) =>
+                                          SignUpOtp(email, token),
+                                    ),
+                                  );
+                                } else {
+                                  debugPrint(response.reasonPhrase);
+
+                                  //Close Progress Dialog
+                                  //check if mounted
+                                  if (!context.mounted) return;
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
+                                }
+                              } catch (e) {
+                                //check if mounted
+                                if (!context.mounted) return;
+
                                 //Close Progress Dialog
                                 Navigator.of(context, rootNavigator: true)
                                     .pop();

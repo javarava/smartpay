@@ -1,15 +1,15 @@
-import 'package:flutter/gestures.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:go_router/go_router.dart';
-import 'package:pinput/pinput.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
 import '/providers/user_provider.dart';
 import '/src/widgets.dart';
 import '/src/theme.dart';
+import '/src/emails.dart';
 import '/routes/signuppin.dart';
 
 Map? loggedinUser;
@@ -44,8 +44,10 @@ class _SignUpAboutState extends State<SignUpAbout> {
 
   String fullName = '';
   String username = '';
-  String country = '';
+  String? country = '';
+  String? countryCode = '';
   String password = '';
+  String email = '';
 
   @override
   void initState() {
@@ -67,6 +69,10 @@ class _SignUpAboutState extends State<SignUpAbout> {
   Widget build(BuildContext context) {
     //Get data from provider
     Map providerCountry = context.watch<UserProvider>().country;
+    countryCode = context.watch<UserProvider>().country['code'];
+
+    //Get email from provider
+    email = context.watch<UserProvider>().userEmail;
 
     final ccountry = TextEditingController(text: providerCountry['country']);
 
@@ -329,28 +335,20 @@ class _SignUpAboutState extends State<SignUpAbout> {
                                         .currentState!.value['password']
                                         .toString();
 
-                                    //Close Progress Dialog
-                                    Navigator.of(context, rootNavigator: true)
-                                        .pop();
+                                    //Define userMap
+                                    Map<String, String> userMap = {
+                                      'full_name': fullName,
+                                      'username': username,
+                                      'email': email,
+                                      'country': countryCode.toString(),
+                                      'password': password,
+                                      'device_name': 'mobile'
+                                    };
 
-                                    //PUSH TO SIGNUP PIN
-                                    //check if mounted
-                                    if (!context.mounted) return;
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute<void>(
-                                        builder: (BuildContext context) =>
-                                            const SignUpPin(),
-                                      ),
-                                    );
+                                    debugPrint('UserMap: $userMap');
 
-                                    try {} catch (e) {
-                                      //Close Progress Dialog
-                                      Navigator.of(context, rootNavigator: true)
-                                          .pop();
-
-                                      debugPrint('Error: ${e.toString()}');
-                                    }
+                                    //Register user with API
+                                    registerUser(context, userMap);
                                   } else {
                                     debugPrint('Invalid');
                                   }
@@ -555,4 +553,67 @@ countryRow(context, AssetImage flag, String countryCode, String country) {
       );
     },
   );
+}
+
+//Register user function
+registerUser(context, Map<String, String> userMap) async {
+  try {
+    //Request a token to verify a new email address
+    var headers = {'Accept': 'application/json'};
+    var request = http.Request('POST', Uri.parse('${apiURL}auth/register'));
+    request.bodyFields = userMap;
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      String responseStream = await response.stream.bytesToString();
+      debugPrint('Response Stream = $responseStream');
+
+      //convert response to JSON format
+      Map responseJson = json.decode(responseStream);
+
+      debugPrint('Response JSON = $responseJson');
+
+      //Get user data from JSON
+      Map userData = responseJson['data']['user'];
+
+      //Save user data in Provider
+      context.read<UserProvider>().setUser(userData);
+
+      //Send Email to user
+      sendNewUserRegisterMail(userData);
+
+      //check if mounted
+      if (!context.mounted) return;
+
+      //Close Progress Dialog
+      Navigator.of(context, rootNavigator: true).pop();
+
+      //PUSH TO SIGNUP PIN
+
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+          builder: (BuildContext context) => const SignUpPin(),
+        ),
+      );
+    } else {
+      debugPrint(response.reasonPhrase);
+
+      //check if mounted
+      if (!context.mounted) return;
+
+      //Close Progress Dialog
+      Navigator.of(context, rootNavigator: true).pop();
+    }
+  } catch (e) {
+    //check if mounted
+    if (!context.mounted) return;
+
+    //Close Progress Dialog
+    Navigator.of(context, rootNavigator: true).pop();
+
+    debugPrint('Error: ${e.toString()}');
+  }
 }

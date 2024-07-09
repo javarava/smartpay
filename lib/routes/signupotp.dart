@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http/http.dart' as http;
 import 'package:pinput/pinput.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '/providers/user_provider.dart';
 import '/src/widgets.dart';
 import '/src/theme.dart';
+import '/src/datastorage.dart';
 import '/routes/signupabout.dart';
 
 Map? loggedinUser;
@@ -16,7 +17,8 @@ String? userID;
 
 class SignUpOtp extends StatefulWidget {
   final String email;
-  const SignUpOtp(this.email, {super.key});
+  final String token;
+  const SignUpOtp(this.email, this.token, {super.key});
 
   @override
   State<SignUpOtp> createState() => _SignUpOtpState();
@@ -71,6 +73,9 @@ class _SignUpOtpState extends State<SignUpOtp> {
 
     //Mask email
     String maskedEmail = "*****@$emailDomain";
+
+    //Get token from passed parameter
+    String token = widget.token;
 
     return SafeArea(
       child: Scaffold(
@@ -136,7 +141,7 @@ class _SignUpOtpState extends State<SignUpOtp> {
                       submittedPinTheme: focusedPinTheme,
                       inputFormatters: integerOnlyTextFormatter(),
                       validator: (s) {
-                        if (s == '22222') {
+                        if (s == token) {
                           setState(() {
                             pinCorrect = true;
                           });
@@ -155,7 +160,7 @@ class _SignUpOtpState extends State<SignUpOtp> {
                           pinCorrect = false;
                         });
                       },
-                      onCompleted: (pin) {
+                      onCompleted: (pin) async {
                         debugPrint('Pin: $pin');
                       },
                     ),
@@ -190,9 +195,16 @@ class _SignUpOtpState extends State<SignUpOtp> {
                             //Check internet connection
                             await checkConn(context);
 
-                            //PUSH TO SIGNUP OTP
                             //check if mounted
                             if (!context.mounted) return;
+
+                            //Save email in Provider
+                            context.read<UserProvider>().addUserEmail(email);
+
+                            //Write email in file
+                            writeEmail(email);
+
+                            //PUSH TO SIGNUP OTP
                             Navigator.push(
                               context,
                               MaterialPageRoute<void>(
