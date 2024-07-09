@@ -1,15 +1,16 @@
-import 'package:flutter/gestures.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:go_router/go_router.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
 import '/providers/user_provider.dart';
-import '/src/navigation.dart';
 import '/src/widgets.dart';
 import '/src/theme.dart';
-import '/src/datastorage.dart';
+import '/routes/signinpin.dart';
+import '/routes/passwordrecovery.dart';
 
 Map? loggedinUser;
 String? userEmail;
@@ -181,7 +182,14 @@ class _SignInState extends State<SignIn> {
                               ),
                             ),
                             onTap: () async {
-                              //Show Reset Password dialog
+                              //PUSH TO PASSWORD RECOVERY
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (BuildContext context) =>
+                                        const PasswordRecovery(),
+                                  ),
+                                );
                             },
                           ),
                         ),
@@ -220,7 +228,83 @@ class _SignInState extends State<SignIn> {
                                   .currentState!.value['password']
                                   .toString();
 
-                              try {} catch (e) {
+                              try {
+                                //Register a new user
+                                var headers = {'Accept': 'application/json'};
+                                var request = http.Request(
+                                    'POST', Uri.parse('${apiURL}auth/login'));
+                                request.bodyFields = {
+                                  'email': email,
+                                  'password': password,
+                                  'device_name': 'mobile'
+                                };
+                                request.headers.addAll(headers);
+
+                                debugPrint(
+                                    'Body fields: ${request.bodyFields}');
+
+                                http.StreamedResponse response =
+                                    await request.send();
+
+                                if (response.statusCode == 200) {
+                                  String responseStream =
+                                      await response.stream.bytesToString();
+                                  debugPrint(
+                                      'Response Stream = $responseStream');
+
+                                  //convert response to JSON format
+                                  Map responseJson =
+                                      json.decode(responseStream);
+
+                                  debugPrint('Response JSON = $responseJson');
+
+                                  Map? userData = responseJson['data']['user'];
+                                  String? token = responseJson['data']['token'];
+
+                                  //check if mounted
+                                  if (!context.mounted) return;
+
+                                  //set secret token
+                                  context.read<UserProvider>().setToken(token);
+
+                                  //Close Progress Dialog
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
+
+                                  //PUSH TO SIGNUP PIN
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute<void>(
+                                      builder: (BuildContext context) =>
+                                          SignInPin(userData!),
+                                    ),
+                                  );
+                                } else {
+                                  debugPrint(response.reasonPhrase);
+
+                                  String responseStream =
+                                      await response.stream.bytesToString();
+
+                                  //convert response to JSON format
+                                  Map responseJson =
+                                      json.decode(responseStream);
+
+                                  debugPrint('Reponse: $responseJson');
+
+                                  //check if mounted
+                                  if (!context.mounted) return;
+
+                                  //Close Progress Dialog
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
+
+                                  return;
+                                }
+                              } catch (e) {
+                                //check if mounted
+                                if (!context.mounted) return;
+
                                 //Close Progress Dialog
                                 Navigator.of(context, rootNavigator: true)
                                     .pop();

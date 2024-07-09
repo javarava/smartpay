@@ -611,6 +611,13 @@ registerUser(context, userMap) async {
     } else {
       debugPrint(response.reasonPhrase);
 
+      String responseStream = await response.stream.bytesToString();
+
+      //convert response to JSON format
+      Map responseJson = json.decode(responseStream);
+
+      debugPrint('Reponse: $responseJson');
+
       //check if mounted
       if (!context.mounted) return;
 

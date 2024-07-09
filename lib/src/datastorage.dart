@@ -4,7 +4,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 
 //Write user details in a text file on user's device
-Future<File> writeDetails(Map<String, dynamic> detailsMap) async {
+Future<File> writeDetails(Map<dynamic, dynamic> detailsMap) async {
   final directory = await getApplicationDocumentsDirectory();
   final localPath = directory.path;
   final file = File('$localPath/details.txt');

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pinput/pinput.dart';
 import 'package:lottie/lottie.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:smartpay/src/widgets.dart';
-import '/providers/user_provider.dart';
 import '/src/theme.dart';
 
 Map? loggedinUser;

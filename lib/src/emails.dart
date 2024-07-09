@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import '/src/theme.dart';
-import '/src/widgets.dart';
-
-var f = NumberFormat('###,###,##0.00');
 
 // Use the SmtpServer class to configure an SMTP server:
 // final smtpServer = SmtpServer('smtp.domain.com');

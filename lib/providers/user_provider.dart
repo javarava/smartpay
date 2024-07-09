@@ -12,7 +12,9 @@ class UserProvider with ChangeNotifier {
   var userDetails = List<Map<String, dynamic>?>.filled(1, {});
 
   String emailFromFile = '';
-  int? pin;
+  String? userPin;
+
+  String? secretToken;
 
   Map newCountry = {};
 
@@ -64,9 +66,9 @@ class UserProvider with ChangeNotifier {
       final pinFile = await readPinFile();
       if (pinFile.isEmpty) {
         debugPrint('Pin file does not exist or empty');
-        pin = 0;
+        userPin = '';
       } else {
-        pin = int.tryParse(pinFile);
+        userPin = pinFile;
         //debugPrint('Pin from file: $pin');
       }
     } catch (e) {
@@ -90,6 +92,10 @@ class UserProvider with ChangeNotifier {
 
   Map get country => newCountry;
 
+  String? get pin => userPin;
+
+  String? get secret => secretToken; 
+
   //Set user
   void setUser(Map? user) {
     loggedinUser = user;
@@ -104,6 +110,7 @@ class UserProvider with ChangeNotifier {
     loggedinUser = null;
     userID = null;
     userDetails[0] = {};
+    secretToken = null;
 
     notifyListeners();
   }
@@ -136,6 +143,24 @@ class UserProvider with ChangeNotifier {
   //Set country
   void setNewCountry(Map item) {
     newCountry = (item);
+    notifyListeners();
+  }
+
+  //Set user pin
+  void setPin(String? item) {
+    userPin = (item);
+    notifyListeners();
+  }
+
+  //Set secret token
+  void setToken(String? item) {
+    secretToken = (item);
+    notifyListeners();
+  }
+
+  //Set user pin
+  void clearPin(String? item) {
+    userPin = null;
     notifyListeners();
   }
 }

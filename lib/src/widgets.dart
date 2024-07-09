@@ -400,45 +400,6 @@ twoButtonsContinueAlertDialog(
   );
 }
 
-//PREVENT APP CLOSING WITH BACK BUTTON
-
-Future<bool> onWillPop(BuildContext context) async {
-  bool? exitResult = await showDialog(
-    context: context,
-    builder: (context) => buildExitDialog(context),
-  );
-
-  return exitResult ?? false;
-}
-
-AlertDialog buildExitDialog(BuildContext context) {
-  return AlertDialog(
-    title: Text(
-      'Please confirm',
-      style: AppTheme.text20Bold(),
-    ),
-    content: Text(
-      'Do you want to exit ${AppTheme.appTitle()}?',
-      style: AppTheme.text16(),
-    ),
-    actions: <Widget>[
-      TextButton(
-        onPressed: () => Navigator.of(context).pop(false),
-        child: Text(
-          'No',
-          style: AppTheme.text16Bold(),
-        ),
-      ),
-      TextButton(
-        onPressed: () => Navigator.of(context).pop(true),
-        child: Text(
-          'Yes',
-          style: AppTheme.text16Bold(),
-        ),
-      ),
-    ],
-  );
-}
 
 //Display greeting message based on device time
 String displayGreeting() {
@@ -447,7 +408,7 @@ String displayGreeting() {
 
     //debugPrint('Meridian = $meridian');
 
-    if (hours >= 1 && hours <= 12) {
+    if (hours >= 0 && hours <= 12) {
       return "Good morning";
     } else if (hours >= 12 && hours <= 16) {
       return "Good afternoon";
@@ -462,15 +423,6 @@ String displayGreeting() {
   }
 }
 
-dividerGray1() {
-  return Divider(
-    thickness: 1,
-    height: 0,
-    indent: 0,
-    endIndent: 0,
-    color: smartpayBlack.shade200,
-  );
-}
 
 integerOnlyTextFormatter() {
   return [
@@ -504,6 +456,54 @@ richHeaderTextBlueMiddle(String startText, String? blueText, String? endText) {
               : const TextSpan()
         ],
       ),
+    ),
+  );
+}
+
+
+//Return tabs
+tabWithIconTitleDesc(var icon, String title, String desc) {
+  return Container(
+    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+    width: double.infinity,
+    decoration: AppTheme.grey1cir10BoxDecoration(),
+    child: Row(
+      children: [
+        SizedBox(
+          child: Icon(
+            icon,
+            size: 28,
+            color: Colors.grey.shade700,
+          ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: AppTheme.text16Bold(),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  desc,
+                  style: AppTheme.text12(),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(
+          child: Icon(
+            Icons.arrow_forward_ios_rounded,
+            size: 22,
+            color: Color.fromARGB(255, 95, 95, 95),
+          ),
+        ),
+      ],
     ),
   );
 }

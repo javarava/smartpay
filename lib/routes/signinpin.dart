@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:smartpay/src/datastorage.dart';
 import '/providers/user_provider.dart';
 import '/src/widgets.dart';
 import '/src/theme.dart';
-import '/routes/signupcomplete.dart';
 
 Map? loggedinUser;
 String? userEmail;
 String? userID;
 
+String? pinSupplied;
 String? userPin;
 
-class SignUpPin extends StatefulWidget {
-  const SignUpPin({super.key});
+class SignInPin extends StatefulWidget {
+  final Map userData;
+  const SignInPin(this.userData, {super.key});
 
   @override
-  State<SignUpPin> createState() => _SignUpPinState();
+  State<SignInPin> createState() => _SignInPinState();
 }
 
-class _SignUpPinState extends State<SignUpPin> {
+class _SignInPinState extends State<SignInPin> {
   bool pinCorrect = false;
 
   final bottomOnlyPinTheme = PinTheme(
@@ -43,6 +45,9 @@ class _SignUpPinState extends State<SignUpPin> {
 
   @override
   Widget build(BuildContext context) {
+    //Get passed parameter
+    Map? userData = widget.userData;
+
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
@@ -50,7 +55,7 @@ class _SignUpPinState extends State<SignUpPin> {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                //title: const Text('Sign Up'),
+                //title: const Text('Sign In'),
                 expandedHeight: 46,
                 toolbarHeight: 46,
                 floating: true,
@@ -70,7 +75,7 @@ class _SignUpPinState extends State<SignUpPin> {
 
                   //Rich header text
                   richHeaderTextBlueMiddle(
-                    'Set your PIN code',
+                    'Provide your PIN code',
                     null,
                     null,
                   ),
@@ -126,11 +131,8 @@ class _SignUpPinState extends State<SignUpPin> {
 
                         setState(() {
                           pinCorrect = true;
-                          userPin = pin;
+                          pinSupplied = pin;
                         });
-
-                        
-                        
                       },
                     ),
                   ),
@@ -142,7 +144,7 @@ class _SignUpPinState extends State<SignUpPin> {
                       ? InkWell(
                           child: AppTheme.blackContainer(
                             Text(
-                              'Create PIN',
+                              'Sign In',
                               style: AppTheme.text18InvertedBold(),
                               textAlign: TextAlign.center,
                             ),
@@ -151,34 +153,41 @@ class _SignUpPinState extends State<SignUpPin> {
                             //Dismiss keyboard
                             FocusManager.instance.primaryFocus?.unfocus();
 
+                            //read pin from file
+                            String? pinFromFile = await readPinFile();
 
-                            //set pin to Provider
-                            context.read<UserProvider>().setPin(userPin);
+                            debugPrint('Pin from file: $pinFromFile');
 
-                            //write pin in file
-                            writePin(userPin!);
+                            if (pinFromFile == pinSupplied) {
+                              debugPrint('Pin Correct');
 
-                            Map? userDetail = context.watch<UserProvider>().loggedinUser;
+                              //check if mounted
+                              if (!context.mounted) return;
 
-                            //Save user detail in file
-                            writeDetails(userDetail!);
+                              //Save user data in Provider
+                              context.read<UserProvider>().setUser(userData);
 
+                              //write user detail in file
+                              writeDetails(userData);
 
-                            //PUSH TO COMPLETE AND POP ALL OTHER ROUTES
-                            //check if mounted
-                            if (!context.mounted) return;
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute<void>(
-                                builder: (BuildContext context) =>
-                                    const SignUpComplete(),
-                              ),
-                            );
+                              //PUSH TO HOME
+                              context.go('/');
+                            } else {
+                              //check if mounted
+                              if (!context.mounted) return;
+
+                              //show error dialog
+                              oneButtonReturnAlertDialog(
+                                context,
+                                'Invalid PIN',
+                                'The PIN your provided does not match. Please try again',
+                              );
+                            }
                           },
                         )
                       : AppTheme.grayContainer(
                           Text(
-                            'Create PIN',
+                            'Sign In',
                             style: AppTheme.text18InvertedBold(),
                             textAlign: TextAlign.center,
                           ),
