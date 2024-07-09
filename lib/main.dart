@@ -24,11 +24,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   //Disable App rotation
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) {
-    usePathUrlStrategy();
-    runApp(
-      MultiProvider(
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
+    (_) {
+      usePathUrlStrategy();
+      runApp(
+        MultiProvider(
           providers: [
             ChangeNotifierProvider(
               create: (_) => UserProvider(),
@@ -36,8 +36,9 @@ void main() async {
           ],
           child: const MyApp(),
         ),
-    );
-  });
+      );
+    },
+  );
 
   runApp(const MyApp());
 }
