@@ -28,8 +28,7 @@ void main() async {
       .then((_) {
     usePathUrlStrategy();
     runApp(
-      Phoenix(
-        child: MultiProvider(
+      MultiProvider(
           providers: [
             ChangeNotifierProvider(
               create: (_) => UserProvider(),
@@ -37,7 +36,6 @@ void main() async {
           ],
           child: const MyApp(),
         ),
-      ),
     );
   });
 

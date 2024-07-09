@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import '/providers/user_provider.dart';
 import '/src/widgets.dart';
 import '/src/theme.dart';
+import '/routes/signuppin.dart';
 
 Map? loggedinUser;
 String? userEmail;
@@ -332,16 +333,16 @@ class _SignUpAboutState extends State<SignUpAbout> {
                                     Navigator.of(context, rootNavigator: true)
                                         .pop();
 
-                                    //PUSH TO SIGNUP OTP
+                                    //PUSH TO SIGNUP PIN
                                     //check if mounted
                                     if (!context.mounted) return;
-                                    /* Navigator.push(
-                                context,
-                                MaterialPageRoute<void>(
-                                  builder: (BuildContext context) =>
-                                      SignUpOtp(email),
-                                ),
-                              ); */
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute<void>(
+                                        builder: (BuildContext context) =>
+                                            const SignUpPin(),
+                                      ),
+                                    );
 
                                     try {} catch (e) {
                                       //Close Progress Dialog
@@ -500,7 +501,7 @@ showCountriesButtomSheet(context) {
 countryRow(context, AssetImage flag, String countryCode, String country) {
   return StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
-      String selectedCountry = context.read<UserProvider>().country['code'];
+      String? selectedCountry = context.read<UserProvider>().country['code'];
       return InkWell(
         child: Container(
           padding: const EdgeInsets.all(15),

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
@@ -6,7 +5,7 @@ import 'package:provider/provider.dart';
 import '/providers/user_provider.dart';
 import '/src/widgets.dart';
 import '/src/theme.dart';
-import '/routes/signupabout.dart';
+import '/routes/signupcomplete.dart';
 
 Map? loggedinUser;
 String? userEmail;
@@ -20,8 +19,6 @@ class SignUpPin extends StatefulWidget {
 }
 
 class _SignUpPinState extends State<SignUpPin> {
- 
-
   bool pinCorrect = false;
 
   final bottomOnlyPinTheme = PinTheme(
@@ -88,7 +85,7 @@ class _SignUpPinState extends State<SignUpPin> {
 
                   const SizedBox(height: 30),
 
-                  //Using Pinput package for Pin 
+                  //Using Pinput package for Pin
                   SizedBox(
                     width: double.infinity,
                     child: Pinput(
@@ -97,6 +94,11 @@ class _SignUpPinState extends State<SignUpPin> {
                       focusedPinTheme: bottomOnlyPinTheme,
                       submittedPinTheme: bottomOnlyPinTheme,
                       inputFormatters: integerOnlyTextFormatter(),
+                      obscureText: true,
+                      obscuringWidget: Text(
+                        '•',
+                        style: AppTheme.text28ExtraBold(),
+                      ),
                       validator: (s) {
                         if (s == '22222') {
                           setState(() {
@@ -142,14 +144,14 @@ class _SignUpPinState extends State<SignUpPin> {
                             //Check internet connection
                             await checkConn(context);
 
-                            //PUSH TO SIGNUP OTP
+                            //PUSH TO COMPLETE AND POP ALL OTHER ROUTES
                             //check if mounted
                             if (!context.mounted) return;
                             Navigator.push(
                               context,
                               MaterialPageRoute<void>(
                                 builder: (BuildContext context) =>
-                                    const SignUpAbout(),
+                                    const SignUpComplete(),
                               ),
                             );
                           },

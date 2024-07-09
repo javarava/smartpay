@@ -1,4 +1,4 @@
-import 'package:flutter/gestures.dart';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
@@ -36,8 +36,9 @@ class _SignUpOtpState extends State<SignUpOtp> {
       fontWeight: FontWeight.w600,
     ),
     decoration: BoxDecoration(
-      border: Border.all(color: smartpayBlack.shade50),
+      border: Border.all(color: smartpayBlack.shade100),
       borderRadius: BorderRadius.circular(15),
+      color: smartpayBlack.shade100,
     ),
   );
 
@@ -56,6 +57,7 @@ class _SignUpOtpState extends State<SignUpOtp> {
         style: BorderStyle.solid,
       ),
       borderRadius: BorderRadius.circular(15),
+      color: smartpayBlack.shade100,
     ),
   );
 

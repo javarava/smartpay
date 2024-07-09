@@ -265,8 +265,9 @@ final goRouter = GoRouter(
   redirect: (context, state) {
     try {
       //Get user from provider
-      final loggedIn =
-          Provider.of<UserProvider>(context, listen: false).loggedinUser;
+      Map? loggedIn = Provider.of<UserProvider>(context, listen: false).loggedinUser;
+      
+       
 
       //Initialize anonymous user routes
       final signin = state.fullPath == '/welcome/signin';
