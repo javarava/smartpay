@@ -12,8 +12,8 @@ import 'package:smartpay/src/datastorage.dart';
 import '/providers/user_provider.dart';
 import '/src/widgets.dart';
 import '/src/theme.dart';
-import '/routes/signinpin.dart';
-import '/routes/signuppin.dart';
+import '/routes/setnewpin.dart';
+import '/routes/signinpinverify.dart';
 import '/routes/passwordrecovery.dart';
 
 class SignIn extends StatefulWidget {
@@ -303,7 +303,7 @@ class _SignInState extends State<SignIn> {
                                       context,
                                       MaterialPageRoute<void>(
                                         builder: (BuildContext context) =>
-                                            const SignUpPin(),
+                                            const SignInPinVerify(),
                                       ),
                                     );
                                   } else {
@@ -312,12 +312,12 @@ class _SignInState extends State<SignIn> {
                                     //check if mounted
                                     if (!context.mounted) return;
 
-                                    //PUSH TO SIGNIN PIN
+                                    //PUSH TO SET NEW PIN
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute<void>(
                                         builder: (BuildContext context) =>
-                                            SignInPin(userData),
+                                            const SetNewPin(),
                                       ),
                                     );
                                   }
