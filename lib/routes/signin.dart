@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -5,12 +6,14 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:smartpay/src/datastorage.dart';
 import '/providers/user_provider.dart';
 import '/src/widgets.dart';
 import '/src/theme.dart';
 import '/routes/signinpin.dart';
+import '/routes/signuppin.dart';
 import '/routes/passwordrecovery.dart';
 
 class SignIn extends StatefulWidget {
@@ -226,7 +229,7 @@ class _SignInState extends State<SignIn> {
                                   .toString();
 
                               try {
-                                //Register a new user
+                                //Sign in user
                                 var headers = {'Accept': 'application/json'};
                                 var request = http.Request(
                                     'POST', Uri.parse('${apiURL}auth/login'));
@@ -261,26 +264,67 @@ class _SignInState extends State<SignIn> {
                                   //check if mounted
                                   if (!context.mounted) return;
 
+                                  //set user data in provider
+                                  context
+                                      .read<UserProvider>()
+                                      .setUser(userData);
+
+                                  //write user details to file
+                                  writeDetails(userData!);
+
+                                  //write user password to file
+                                  writePasswordFile(password);
+
                                   //set secret token
                                   context.read<UserProvider>().setToken(token);
 
                                   //write token to file
-                                  
+
                                   writeTokenFile(token!);
 
-                                  //Close Progress Dialog
-                                  Navigator.of(context, rootNavigator: true)
-                                      .pop();
+                                  //check if pin exists
+                                  //Read user details from details.txt file on user's device
 
-                                  //PUSH TO SIGNUP PIN
+                                  final directory =
+                                      await getApplicationDocumentsDirectory();
+                                  final localPath = directory.path;
+                                  final file = File('$localPath/details.txt');
 
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute<void>(
-                                      builder: (BuildContext context) =>
-                                          SignInPin(userData!),
-                                    ),
-                                  );
+                                  bool? fileExists = await file.exists();
+
+                                  if (fileExists == true) {
+                                    //if yes go to SignInPin(userData!)
+
+                                    //check if mounted
+                                    if (!context.mounted) return;
+
+                                    //Close Progress Dialog
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop();
+
+                                    //PUSH TO SIGNIN PIN
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute<void>(
+                                        builder: (BuildContext context) =>
+                                            SignInPin(userData!),
+                                      ),
+                                    );
+                                  } else {
+                                    //if not set pin
+
+                                    //check if mounted
+                                    if (!context.mounted) return;
+
+                                    //PUSH TO SIGNUP PIN
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute<void>(
+                                        builder: (BuildContext context) =>
+                                            const SignUpPin(),
+                                      ),
+                                    );
+                                  }
                                 } else {
                                   debugPrint(response.reasonPhrase);
 

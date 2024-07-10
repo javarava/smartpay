@@ -33,9 +33,12 @@ class UserProvider with ChangeNotifier {
       if (detailsFile.isEmpty) {
         debugPrint('User details file does not exist or empty');
         loggedinUser = null;
+        notifyListeners();
       } else {
-        loggedinUser = detailsFile;
+        //nullifying the user to enable request for pin
+        loggedinUser = null;
         //debugPrint('User details from file: $detailsFile');
+        notifyListeners();
       }
     } catch (e) {
       debugPrint("An error occurred! Error: ${e.toString()}");
@@ -51,15 +54,17 @@ class UserProvider with ChangeNotifier {
       if (emailFile.isEmpty) {
         debugPrint('Email file does not exist or empty');
         emailFromFile = '';
+        notifyListeners();
       } else {
         emailFromFile = emailFile;
         //debugPrint('Email from file: $emailFromFile');
+        notifyListeners();
       }
     } catch (e) {
       debugPrint("An error occurred! Error: ${e.toString()}");
-    }
 
-    notifyListeners();
+      emailFromFile = '';
+    }
   }
 
   //Read email from text file on device
@@ -70,16 +75,16 @@ class UserProvider with ChangeNotifier {
         debugPrint('Token file does not exist or empty');
         tokenFromFile = '';
         secretToken = '';
+        notifyListeners();
       } else {
         tokenFromFile = tokenFile;
         secretToken = tokenFile;
         //debugPrint('Email from file: $emailFromFile');
+        notifyListeners();
       }
     } catch (e) {
       debugPrint("An error occurred! Error: ${e.toString()}");
     }
-
-    notifyListeners();
   }
 
   //Read pin from text file on device
@@ -88,10 +93,12 @@ class UserProvider with ChangeNotifier {
       final pinFile = await readPinFile();
       if (pinFile.isEmpty) {
         debugPrint('Pin file does not exist or empty');
-        userPin = '';
+        userPin = null;
+        notifyListeners();
       } else {
         userPin = pinFile;
         //debugPrint('Pin from file: $pin');
+        notifyListeners();
       }
     } catch (e) {
       debugPrint("An error occurred! Error: ${e.toString()}");

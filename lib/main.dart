@@ -51,14 +51,16 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   //Get the credentials of the user
-  Future<void> getCurrentUser() async {
+  /* Future<void> getCurrentUser() async {
     try {
-      /* final user = auth.currentUser;
+      final user =
+          Provider.of<UserProvider>(context, listen: false).loggedinUser;
+
+      debugPrint('User in MyApp: $user');
+
       if (user != null) {
         loggedinUser = user;
-        userID = user.uid;
-        userEmail = user.email;
-      } */
+      }
     } catch (e) {
       debugPrint('An error occurred: $e');
     }
@@ -76,14 +78,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
     //Get user data from provider
     //loggedinUser = context.watch<UserProvider>().loggedinUser;
-
-    //loggedinUser != null ? userID = loggedinUser!['id'] : userID = null;
 
     return MaterialApp.router(
       routerConfig: goRouter,

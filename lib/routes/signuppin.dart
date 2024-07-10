@@ -124,9 +124,6 @@ class _SignUpPinState extends State<SignUpPin> {
                           pinCorrect = true;
                           userPin = pin;
                         });
-
-                        
-                        
                       },
                     ),
                   ),
@@ -147,18 +144,18 @@ class _SignUpPinState extends State<SignUpPin> {
                             //Dismiss keyboard
                             FocusManager.instance.primaryFocus?.unfocus();
 
-
                             //set pin to Provider
                             context.read<UserProvider>().setPin(userPin);
 
                             //write pin in file
                             writePin(userPin!);
 
-                            Map? userDetail = context.watch<UserProvider>().loggedinUser;
+                            Map? userDetail = Provider.of<UserProvider>(context,
+                                    listen: false)
+                                .loggedinUser;
 
                             //Save user detail in file
                             writeDetails(userDetail!);
-
 
                             //PUSH TO COMPLETE AND POP ALL OTHER ROUTES
                             //check if mounted

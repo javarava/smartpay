@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
@@ -149,35 +150,43 @@ class _SignInPinState extends State<SignInPin> {
                             //Dismiss keyboard
                             FocusManager.instance.primaryFocus?.unfocus();
 
-                            //read pin from file
-                            String? pinFromFile = await readPinFile();
+                            String? pinFromFile;
 
-                            debugPrint('Pin from file: $pinFromFile');
+                            try {
+                              //read pin from file
+                              pinFromFile = await readPinFile();
 
-                            if (pinFromFile == pinSupplied) {
-                              debugPrint('Pin Correct');
+                              debugPrint('Pin from file: $pinFromFile');
 
-                              //check if mounted
-                              if (!context.mounted) return;
+                              if (pinFromFile == pinSupplied) {
+                                debugPrint('Pin Correct');
 
-                              //Save user data in Provider
-                              context.read<UserProvider>().setUser(userData);
+                                //check if mounted
+                                if (!context.mounted) return;
 
-                              //write user detail in file
-                              writeDetails(userData);
+                                //Save user data in Provider
+                                context.read<UserProvider>().setUser(userData);
 
-                              //PUSH TO HOME
-                              context.go('/');
-                            } else {
-                              //check if mounted
-                              if (!context.mounted) return;
+                                //write user detail in file
+                                writeDetails(userData);
 
-                              //show error dialog
-                              oneButtonReturnAlertDialog(
-                                context,
-                                'Invalid PIN',
-                                'The PIN your provided does not match. Please try again',
-                              );
+                                //PUSH TO HOME
+                                context.go('/');
+                              } else {
+                                //check if mounted
+                                if (!context.mounted) return;
+
+                                //show error dialog
+                                oneButtonReturnAlertDialog(
+                                  context,
+                                  'Invalid PIN',
+                                  'The PIN your provided does not match. Please try again',
+                                );
+                              }
+                            } on PathNotFoundException catch (e) {
+                              debugPrint('Error Message: ${e.message}');
+
+                              return;
                             }
                           },
                         )

@@ -87,3 +87,25 @@ Future<String> readToken() async {
   return jsonDecode(jsonStr);
 }
 
+//Write user password in a text file on user's device
+//This is a possible edge case because it could be a vulnerability to save user password in a text file
+//A possible work around is to encrypt the password upon save and decrypt upon request
+Future<File> writePasswordFile(String password) async {
+  final directory = await getApplicationDocumentsDirectory();
+  final localPath = directory.path;
+  final file = File('$localPath/password.txt');
+  final jsonStr = jsonEncode(password);
+  //debugPrint('Password written to file!');
+  // Write the file
+  return file.writeAsString(jsonStr);
+}
+
+//Read user token from token.txt file on user's device
+Future<String> readPassword() async {
+  final directory = await getApplicationDocumentsDirectory();
+  final localPath = directory.path;
+  final file = File('$localPath/password.txt');
+  //debugPrint('Password File Path: $localPath/pin.txt');
+  final jsonStr = await file.readAsString();
+  return jsonDecode(jsonStr);
+}
