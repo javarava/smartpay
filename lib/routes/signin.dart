@@ -240,23 +240,19 @@ class _SignInState extends State<SignIn> {
                                 };
                                 request.headers.addAll(headers);
 
-                                debugPrint(
-                                    'Body fields: ${request.bodyFields}');
-
                                 http.StreamedResponse response =
                                     await request.send();
 
                                 if (response.statusCode == 200) {
                                   String responseStream =
                                       await response.stream.bytesToString();
-                                  debugPrint(
-                                      'Response Stream = $responseStream');
+                                  //debugPrint('Response Stream = $responseStream');
 
                                   //convert response to JSON format
                                   Map responseJson =
                                       json.decode(responseStream);
 
-                                  debugPrint('Response JSON = $responseJson');
+                                  //debugPrint('Response JSON = $responseJson');
 
                                   Map? userData = responseJson['data']['user'];
                                   String? token = responseJson['data']['token'];
@@ -307,7 +303,7 @@ class _SignInState extends State<SignIn> {
                                       context,
                                       MaterialPageRoute<void>(
                                         builder: (BuildContext context) =>
-                                            SignInPin(userData!),
+                                            SignInPin(userData),
                                       ),
                                     );
                                   } else {
@@ -326,7 +322,7 @@ class _SignInState extends State<SignIn> {
                                     );
                                   }
                                 } else {
-                                  debugPrint(response.reasonPhrase);
+                                  //debugPrint(response.reasonPhrase);
 
                                   String responseStream =
                                       await response.stream.bytesToString();
@@ -335,7 +331,7 @@ class _SignInState extends State<SignIn> {
                                   Map responseJson =
                                       json.decode(responseStream);
 
-                                  debugPrint('Reponse: $responseJson');
+                                  //debugPrint('Reponse: $responseJson');
 
                                   if (responseJson['errors']['email'].contains(
                                       'These credentials do not match our records.')) {
@@ -366,7 +362,9 @@ class _SignInState extends State<SignIn> {
                                 debugPrint('Error: ${e.toString()}');
                               }
                             } else {
-                              debugPrint('Invalid');
+                              //debugPrint('Invalid');
+                              toastInfoLong(
+                                  'Error! Please provide valid details.');
                             }
                           },
                         ),

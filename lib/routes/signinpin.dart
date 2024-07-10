@@ -124,7 +124,7 @@ class _SignInPinState extends State<SignInPin> {
                         });
                       },
                       onCompleted: (pin) {
-                        debugPrint('Pin: $pin');
+                        //debugPrint('Pin: $pin');
 
                         setState(() {
                           pinCorrect = true;
@@ -156,10 +156,10 @@ class _SignInPinState extends State<SignInPin> {
                               //read pin from file
                               pinFromFile = await readPinFile();
 
-                              debugPrint('Pin from file: $pinFromFile');
+                              //debugPrint('Pin from file: $pinFromFile');
 
                               if (pinFromFile == pinSupplied) {
-                                debugPrint('Pin Correct');
+                                //debugPrint('Pin Correct');
 
                                 //check if mounted
                                 if (!context.mounted) return;

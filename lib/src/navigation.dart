@@ -3,8 +3,6 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-import '/providers/user_provider.dart';
 import '/main.dart';
 import '/routes/welcome.dart';
 import '/routes/signup.dart';
@@ -16,7 +14,7 @@ import '/routes/loans.dart';
 import '/routes/cards.dart';
 import '/routes/me.dart';
 import '/routes/signinpinverify.dart';
-import '/src/datastorage.dart';
+import '/src/globals.dart' as globals;
 
 CustomTransitionPage slideDownToUpTransition<T>({
   required BuildContext context,
@@ -278,9 +276,6 @@ final goRouter = GoRouter(
   // redirect to the login page if the user is not logged in
   redirect: (context, state) async {
     try {
-      final user =
-          Provider.of<UserProvider>(context, listen: false).loggedinUser;
-
       //Initialize anonymous user routes
       final signin = state.fullPath == '/welcome/signin';
       final signinpinverify = state.fullPath == '/welcome/signinpinverify';
@@ -295,22 +290,39 @@ final goRouter = GoRouter(
 
       bool? fileExists = await file.exists();
 
-      if (fileExists == true) {
+      if (fileExists) {
         //debugPrint('Details File Path: $localPath/details.txt');
         final jsonStr = await file.readAsString();
         Map? fileJson = jsonDecode(jsonStr) as Map<String, dynamic>;
 
-        if (fileJson.containsKey('id') && user!.isEmpty) {
-          //user registered, not logged in
-          //GO TO LOGIN PIN VERIFY PAGE
-          return '/welcome/signinpinverify';
-        } else if (fileJson.containsKey('id') && user!.isNotEmpty) {
-          //user registered, not logged in
-          //GO TO HOME
+        /* if (fileJson.containsKey('id') && globals.isLoggedIn) {
+          //user registered, logged in
+          //GO HOME
           return '/';
+        } else if (fileJson.containsKey('id') && !globals.isLoggedIn) {
+          //user registered, not logged in
+          //GO TO LOGIN PIN VERIFY ROUTE
+          return '/welcome/signinpinverify';
         } else {
           //user not registered
           return '/welcome/signin';
+        } */
+
+        //Check if user is logged in or not and redirect accordingly
+        if (fileJson.containsKey('id') && globals.isLoggedIn) {
+          if (signin || signup || welcome || signinpinverify) {
+            return '/';
+          } else {
+            return null;
+          }
+        } else if (fileJson.containsKey('id') && !globals.isLoggedIn) {
+          return '/welcome/signinpinverify';
+        } else {
+          if (signin || signup || welcome) {
+            return null;
+          } else {
+            return '/welcome';
+          }
         }
       } else {
         //user not registered
@@ -321,32 +333,6 @@ final goRouter = GoRouter(
           return '/welcome';
         }
       }
-
-      /* final detailsFile = await readDetailsFile();
-
-      //final loggedIn = Provider.of<UserProvider>(context, listen: true).loggedinUser;
-
-      debugPrint('LoggedInNav = $loggedIn');
-
-      //Initialize anonymous user routes
-      final signin = state.fullPath == '/welcome/signin';
-      final signup = state.fullPath == '/welcome/signup';
-      final welcome = state.fullPath == '/welcome';
-
-      //Check if user is logged in or not and redirect accordingly
-      if (loggedIn != null) {
-        if (signin || signup || welcome) {
-          return '/';
-        } else {
-          return null;
-        }
-      } else {
-        if (signin || signup || welcome) {
-          return null;
-        } else {
-          return '/welcome';
-        }
-      } */
     } catch (e) {
       debugPrint('An error occurred! $e');
 

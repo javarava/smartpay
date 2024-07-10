@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import '/src/datastorage.dart';
+import '/src/globals.dart' as globals;
 
 class UserProvider with ChangeNotifier {
   Map? loggedinUser;
@@ -31,11 +32,12 @@ class UserProvider with ChangeNotifier {
     try {
       final detailsFile = await readDetailsFile();
       if (detailsFile.isEmpty) {
-        debugPrint('User details file does not exist or empty');
+        //debugPrint('User details file does not exist or empty');
         loggedinUser = null;
         notifyListeners();
       } else {
         //nullifying the user to enable request for pin
+        globals.isLoggedIn = false;
         loggedinUser = null;
         //debugPrint('User details from file: $detailsFile');
         notifyListeners();

@@ -146,13 +146,12 @@ class _SignUpState extends State<SignUp> {
                                 if (response.statusCode == 200) {
                                   String responseStream =
                                       await response.stream.bytesToString();
-                                  debugPrint(
-                                      'Response Stream = $responseStream');
+                                  //debugPrint('Response Stream = $responseStream');
 
                                   Map responseJson =
                                       json.decode(responseStream);
 
-                                  debugPrint('Response JSON = $responseJson');
+                                  //debugPrint('Response JSON = $responseJson');
 
                                   String token = responseJson['data']['token'];
 
@@ -176,7 +175,7 @@ class _SignUpState extends State<SignUp> {
                                     ),
                                   );
                                 } else {
-                                  debugPrint(response.reasonPhrase);
+                                  //debugPrint(response.reasonPhrase);
 
                                   //Close Progress Dialog
                                   //check if mounted
@@ -195,7 +194,10 @@ class _SignUpState extends State<SignUp> {
                                 debugPrint('Error: ${e.toString()}');
                               }
                             } else {
-                              debugPrint('Invalid');
+                              //debugPrint('Invalid');
+
+                              toastInfoLong(
+                                  'Error! Please provide valid details.');
                             }
                           },
                         ),

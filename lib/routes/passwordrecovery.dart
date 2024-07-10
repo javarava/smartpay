@@ -186,7 +186,9 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
                                 debugPrint('Error: ${e.toString()}');
                               }
                             } else {
-                              debugPrint('Invalid');
+                              //debugPrint('Invalid');
+                              toastInfoLong(
+                                  'Error! Please provide valid details');
                             }
                           },
                         ),

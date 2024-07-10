@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
-import 'dart:async';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -27,13 +27,15 @@ void main() async {
     (_) {
       usePathUrlStrategy();
       runApp(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider(
-              create: (_) => UserProvider(),
-            ),
-          ],
-          child: const MyApp(),
+        Phoenix(
+          child: MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+                create: (_) => UserProvider(),
+              ),
+            ],
+            child: const MyApp(),
+          ),
         ),
       );
     },
@@ -50,41 +52,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  //Get the credentials of the user
-  /* Future<void> getCurrentUser() async {
-    try {
-      final user =
-          Provider.of<UserProvider>(context, listen: false).loggedinUser;
-
-      debugPrint('User in MyApp: $user');
-
-      if (user != null) {
-        loggedinUser = user;
-      }
-    } catch (e) {
-      debugPrint('An error occurred: $e');
-    }
-  }
-
-  @override
-  void initState() {
-    setState(
-      () {
-        loggedinUser = null;
-      },
-    );
-
-    getCurrentUser();
-
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  } */
-
   @override
   Widget build(BuildContext context) {
-    //Get user data from provider
-    //loggedinUser = context.watch<UserProvider>().loggedinUser;
-
     return MaterialApp.router(
       routerConfig: goRouter,
       debugShowCheckedModeBanner: false,

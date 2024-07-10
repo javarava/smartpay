@@ -1,4 +1,4 @@
-import 'dart:convert';
+//import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -341,7 +341,7 @@ class _SignUpAboutState extends State<SignUpAbout> {
                                       'device_name': 'mobile'
                                     };
 
-                                    debugPrint('UserMap: $userMap');
+                                    //debugPrint('UserMap: $userMap');
 
                                     //Register user with API
                                     registerUser(context, userMap);
@@ -356,7 +356,9 @@ class _SignUpAboutState extends State<SignUpAbout> {
                                     //Send Email to user
                                     sendNewUserRegisterMail(userMap);
                                   } else {
-                                    debugPrint('Invalid');
+                                    //debugPrint('Invalid');
+                                    toastInfoLong(
+                                        'Error! Please provide valid details.');
                                   }
                                 },
                               )
@@ -577,18 +579,18 @@ registerUser(context, userMap) async {
     };
     request.headers.addAll(headers);
 
-    debugPrint('Body fields: ${request.bodyFields}');
+    //debugPrint('Body fields: ${request.bodyFields}');
 
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      String responseStream = await response.stream.bytesToString();
-      debugPrint('Response Stream = $responseStream');
+      //String responseStream = await response.stream.bytesToString();
+      //debugPrint('Response Stream = $responseStream');
 
       //convert response to JSON format
-      Map responseJson = json.decode(responseStream);
+      //Map responseJson = json.decode(responseStream);
 
-      debugPrint('Response JSON = $responseJson');
+      //debugPrint('Response JSON = $responseJson');
 
       //check if mounted
       if (!context.mounted) return;
@@ -605,14 +607,14 @@ registerUser(context, userMap) async {
         ),
       );
     } else {
-      debugPrint(response.reasonPhrase);
+      //debugPrint(response.reasonPhrase);
 
-      String responseStream = await response.stream.bytesToString();
+      //String responseStream = await response.stream.bytesToString();
 
       //convert response to JSON format
-      Map responseJson = json.decode(responseStream);
+      //Map responseJson = json.decode(responseStream);
 
-      debugPrint('Reponse: $responseJson');
+      //debugPrint('Reponse: $responseJson');
 
       //check if mounted
       if (!context.mounted) return;

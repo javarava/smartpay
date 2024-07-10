@@ -118,7 +118,7 @@ class _SignUpPinState extends State<SignUpPin> {
                         });
                       },
                       onCompleted: (pin) {
-                        debugPrint('Pin: $pin');
+                        //debugPrint('Pin: $pin');
 
                         setState(() {
                           pinCorrect = true;

@@ -399,7 +399,6 @@ twoButtonsContinueAlertDialog(
   );
 }
 
-
 //Display greeting message based on device time
 String displayGreeting() {
   try {
@@ -421,7 +420,6 @@ String displayGreeting() {
     return '';
   }
 }
-
 
 integerOnlyTextFormatter() {
   return [
@@ -458,7 +456,6 @@ richHeaderTextBlueMiddle(String startText, String? blueText, String? endText) {
     ),
   );
 }
-
 
 //Return tabs
 tabWithIconTitleDesc(var icon, String title, String desc) {

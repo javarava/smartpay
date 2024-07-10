@@ -9,7 +9,7 @@ import 'package:smartpay/src/datastorage.dart';
 import '/providers/user_provider.dart';
 import '/src/widgets.dart';
 import '/src/theme.dart';
-import '/routes/me.dart';
+import '/src/globals.dart' as globals;
 
 String? pinSupplied;
 String? userPin;
@@ -138,7 +138,7 @@ class _SignInPinVerifyState extends State<SignInPinVerify> {
                               });
                             },
                             onCompleted: (pin) {
-                              debugPrint('Pin: $pin');
+                              //debugPrint('Pin: $pin');
 
                               setState(() {
                                 pinCorrect = true;
@@ -164,14 +164,9 @@ class _SignInPinVerifyState extends State<SignInPinVerify> {
                                   //Dismiss keyboard
                                   FocusManager.instance.primaryFocus?.unfocus();
 
-                                  //Show Loading Dialog
-                                  //check if mounted
-                                  if (!context.mounted) return;
-                                  showLoaderDialog(context);
-
                                   try {
                                     if (userPin == pinSupplied) {
-                                      debugPrint('Pin Correct');
+                                      //debugPrint('Pin Correct');
 
                                       //get user detail from detail file
                                       Map? userData = await readDetailsFile();
@@ -192,8 +187,7 @@ class _SignInPinVerifyState extends State<SignInPinVerify> {
                                       };
                                       request.headers.addAll(headers);
 
-                                      debugPrint(
-                                          'Body fields: ${request.bodyFields}');
+                                      //debugPrint('Body fields: ${request.bodyFields}');
 
                                       http.StreamedResponse response =
                                           await request.send();
@@ -202,15 +196,14 @@ class _SignInPinVerifyState extends State<SignInPinVerify> {
                                         String responseStream = await response
                                             .stream
                                             .bytesToString();
-                                        debugPrint(
-                                            'Response Stream = $responseStream');
+
+                                        //debugPrint('Response Stream = $responseStream');
 
                                         //convert response to JSON format
                                         Map responseJson =
                                             json.decode(responseStream);
 
-                                        debugPrint(
-                                            'Response JSON = $responseJson');
+                                        //debugPrint('Response JSON = $responseJson');
 
                                         Map? userData =
                                             responseJson['data']['user'];
@@ -236,15 +229,18 @@ class _SignInPinVerifyState extends State<SignInPinVerify> {
                                         //write token to file
                                         writeTokenFile(token!);
 
-                                        //Close Progress Dialog
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop();
+                                        setState(() {
+                                          //set global isLoggedIn
+                                          globals.isLoggedIn = true;
+                                        });
+
+                                        //check if mounted
+                                        if (!context.mounted) return;
 
                                         //PUSH TO HOME
-                                        context.go('/');
+                                        context.replace('/');
                                       } else {
-                                        debugPrint(response.reasonPhrase);
+                                        //debugPrint(response.reasonPhrase);
 
                                         String responseStream = await response
                                             .stream
@@ -254,7 +250,7 @@ class _SignInPinVerifyState extends State<SignInPinVerify> {
                                         Map responseJson =
                                             json.decode(responseStream);
 
-                                        debugPrint('Reponse: $responseJson');
+                                        //debugPrint('Reponse: $responseJson');
 
                                         if (responseJson['errors']['email']
                                             .contains(
@@ -265,14 +261,6 @@ class _SignInPinVerifyState extends State<SignInPinVerify> {
                                           toastInfoLong(
                                               'An error occurred! Please try again.');
                                         }
-
-                                        //check if mounted
-                                        if (!context.mounted) return;
-
-                                        //Close Progress Dialog
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop();
 
                                         return;
                                       }
@@ -301,13 +289,6 @@ class _SignInPinVerifyState extends State<SignInPinVerify> {
                                   textAlign: TextAlign.center,
                                 ),
                               ),
-                        //TODO: REMOVE SIGN OUT
-                        InkWell(
-                          child: Text('Sign Out'),
-                          onTap: () {
-                            showSignOutAlertDialog(context);
-                          },
-                        )
                       ],
                     ),
                   ),

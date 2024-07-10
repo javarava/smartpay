@@ -1,4 +1,4 @@
-import 'dart:convert';
+//import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pinput/pinput.dart';
@@ -156,7 +156,7 @@ class _SignUpOtpState extends State<SignUpOtp> {
                         });
                       },
                       onCompleted: (pin) async {
-                        debugPrint('Pin: $pin');
+                        //debugPrint('Pin: $pin');
                       },
                     ),
                   ),
@@ -256,16 +256,16 @@ class _SignUpOtpState extends State<SignUpOtp> {
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-        String responseStream = await response.stream.bytesToString();
-        debugPrint('Response Stream = $responseStream');
+        //String responseStream = await response.stream.bytesToString();
+        //debugPrint('Response Stream = $responseStream');
 
-        Map responseJson = json.decode(responseStream);
+        //Map responseJson = json.decode(responseStream);
 
-        debugPrint('Response JSON = $responseJson');
+        //debugPrint('Response JSON = $responseJson');
 
         //String message = responseJson['message'];
       } else {
-        debugPrint(response.reasonPhrase);
+        //debugPrint(response.reasonPhrase);
 
         //Close Progress Dialog
         //check if mounted

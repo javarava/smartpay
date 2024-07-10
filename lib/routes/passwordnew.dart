@@ -236,7 +236,9 @@ class _SetNewPasswordState extends State<SetNewPassword> {
                                       ),
                                     );
                                   } else {
-                                    debugPrint('Invalid');
+                                    //debugPrint('Invalid');
+                                    toastInfoLong(
+                                        'Error! Please provide valid details');
                                   }
                                 },
                               )
