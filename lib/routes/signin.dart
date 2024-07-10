@@ -13,7 +13,6 @@ import '/providers/user_provider.dart';
 import '/src/widgets.dart';
 import '/src/theme.dart';
 import '/routes/signinpin.dart';
-import '/routes/signuppin.dart';
 import '/routes/passwordrecovery.dart';
 
 class SignIn extends StatefulWidget {
