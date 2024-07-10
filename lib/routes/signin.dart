@@ -13,6 +13,7 @@ import '/providers/user_provider.dart';
 import '/src/widgets.dart';
 import '/src/theme.dart';
 import '/routes/signinpin.dart';
+import '/routes/signuppin.dart';
 import '/routes/passwordrecovery.dart';
 
 class SignIn extends StatefulWidget {
@@ -297,12 +298,12 @@ class _SignInState extends State<SignIn> {
                                     Navigator.of(context, rootNavigator: true)
                                         .pop();
 
-                                    //PUSH TO SIGNIN PIN
+                                    //PUSH TO SIGNUP PIN
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute<void>(
                                         builder: (BuildContext context) =>
-                                            SignInPin(userData),
+                                            const SignUpPin(),
                                       ),
                                     );
                                   } else {
@@ -311,7 +312,7 @@ class _SignInState extends State<SignIn> {
                                     //check if mounted
                                     if (!context.mounted) return;
 
-                                    //PUSH TO SIGNUP PIN
+                                    //PUSH TO SIGNIN PIN
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute<void>(
