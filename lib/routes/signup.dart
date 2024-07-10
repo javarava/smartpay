@@ -5,16 +5,10 @@ import 'package:http/http.dart' as http;
 import 'package:go_router/go_router.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:provider/provider.dart';
-import '/providers/user_provider.dart';
 import '/src/widgets.dart';
 import '/src/theme.dart';
 import '/src/emails.dart';
 import '/routes/signupotp.dart';
-
-Map? loggedinUser;
-String? userEmail;
-String? userID;
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -34,9 +28,6 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    //Get email from email text file using Provider
-    String initialEmail = context.watch<UserProvider>().emailFF;
-
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
@@ -79,7 +70,7 @@ class _SignUpState extends State<SignUp> {
                           child: FormBuilderTextField(
                             key: signUpEmailFieldKey,
                             name: 'email',
-                            initialValue: initialEmail,
+                            //initialValue: initialEmail,
                             style: AppTheme.text16(),
                             decoration:
                                 AppTheme.smartpayInputDecoration('Email'),

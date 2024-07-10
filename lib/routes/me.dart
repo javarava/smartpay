@@ -8,11 +8,7 @@ import '/src/navigation.dart';
 import '/src/datastorage.dart';
 
 Map? loggedinUser;
-String? userID;
 String? userFullName;
-
-String? userPin;
-String? userToken;
 
 class Me extends StatefulWidget {
   const Me({super.key});
@@ -113,8 +109,8 @@ class _MeState extends State<Me> {
           }
 
           //Write empty files
-          Map<String, dynamic> userDetails = {};
-          writeDetails(userDetails);
+          writeDetails({});
+          writeTokenFile('');
 
           debugPrint('User signed out!');
 
@@ -128,7 +124,7 @@ class _MeState extends State<Me> {
             goRouter.refresh();
 
             //Pop and go to home
-            context.go('/welcome');
+            context.go('/welcome/signin');
           }
         } catch (e) {
           debugPrint('An error occurred during signout! $e');

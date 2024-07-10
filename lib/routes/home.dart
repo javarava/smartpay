@@ -4,7 +4,6 @@ import '/providers/user_provider.dart';
 import '/src/theme.dart';
 
 Map? loggedinUser;
-String? userID;
 String? userFullName;
 
 String? userPin;
@@ -52,7 +51,7 @@ class _HomeState extends State<Home> {
                                 width: double.infinity,
                                 child: Text(
                                   "Hi, ${loggedinUser!['full_name']}!",
-                                  style: AppTheme.text18Bold(),
+                                  style: AppTheme.text28BlueExtraBold(),
                                   textAlign: TextAlign.left,
                                 ),
                               ),

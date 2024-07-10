@@ -10,10 +10,6 @@ import '/src/theme.dart';
 import '/src/datastorage.dart';
 import '/routes/signupabout.dart';
 
-Map? loggedinUser;
-String? userEmail;
-String? userID;
-
 class SignUpOtp extends StatefulWidget {
   final String email;
   final String token;

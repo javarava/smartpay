@@ -97,7 +97,6 @@ checkConn(context) async {
 
     toastInfoShort('No Internet connection.');
 
-    //TODO: GO TO NO CONNECTION PAGE
     return;
   }
 }

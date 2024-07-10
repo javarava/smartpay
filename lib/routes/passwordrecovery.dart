@@ -7,10 +7,6 @@ import '/src/widgets.dart';
 import '/src/theme.dart';
 import '/routes/passwordrecoverymethod.dart';
 
-Map? loggedinUser;
-String? userEmail;
-String? userID;
-
 class PasswordRecovery extends StatefulWidget {
   const PasswordRecovery({super.key});
 

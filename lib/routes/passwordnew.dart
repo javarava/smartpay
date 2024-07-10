@@ -5,10 +5,6 @@ import '/src/widgets.dart';
 import '/src/theme.dart';
 import '/routes/signin.dart';
 
-Map? loggedinUser;
-String? userEmail;
-String? userID;
-
 class SetNewPassword extends StatefulWidget {
   const SetNewPassword({super.key});
 
@@ -227,13 +223,9 @@ class _SetNewPasswordState extends State<SetNewPassword> {
                                     if (!context.mounted) return;
                                     showLoaderDialog(context);
 
-                                    String passwordOne = setPasswordFormKey
-                                        .currentState!.value['passwordone']
-                                        .toString();
+                                    //String passwordOne = setPasswordFormKey.currentState!.value['passwordone'].toString();
 
-                                    String passwordTwo = setPasswordFormKey
-                                        .currentState!.value['passwordtwo']
-                                        .toString();
+                                    //String passwordTwo = setPasswordFormKey.currentState!.value['passwordtwo'].toString();
 
                                     //PUSH TO SIGN IN
                                     Navigator.push(

@@ -7,10 +7,6 @@ import '/providers/user_provider.dart';
 import '/src/widgets.dart';
 import '/src/theme.dart';
 
-Map? loggedinUser;
-String? userEmail;
-String? userID;
-
 String? pinSupplied;
 String? userPin;
 

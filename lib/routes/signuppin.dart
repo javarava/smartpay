@@ -7,10 +7,6 @@ import '/src/widgets.dart';
 import '/src/theme.dart';
 import '/routes/signupcomplete.dart';
 
-Map? loggedinUser;
-String? userEmail;
-String? userID;
-
 String? userPin;
 
 class SignUpPin extends StatefulWidget {

@@ -12,10 +12,6 @@ import '/src/theme.dart';
 import '/src/emails.dart';
 import '/routes/signuppin.dart';
 
-Map? loggedinUser;
-String? userEmail;
-String? userID;
-
 class SignUpAbout extends StatefulWidget {
   const SignUpAbout({super.key});
 
@@ -194,7 +190,7 @@ class _SignUpAboutState extends State<SignUpAbout> {
                         const SizedBox(height: 20),
 
                         //COUNTRY
-                        //TODO: CHANGE COUNTRY TEXTFIELD TO A CONTAINER OF ROWS TO ACCOMODATE FLAG
+                        //WILLDO: CHANGE COUNTRY TEXTFIELD TO A CONTAINER OF ROWS TO ACCOMODATE FLAG
                         SizedBox(
                           width: double.infinity,
                           child: FormBuilderTextField(
@@ -390,7 +386,7 @@ class _SignUpAboutState extends State<SignUpAbout> {
 showCountriesButtomSheet(context) {
   TextEditingController searchController = TextEditingController();
 
-  String searchText = '';
+  //String searchText = '';
 
   return showModalBottomSheet<void>(
     context: context,
@@ -423,7 +419,7 @@ showCountriesButtomSheet(context) {
                             controller: searchController,
                             onChanged: (value) {
                               setState(() {
-                                searchText = value;
+                                //searchText = value;
                               });
                             },
                             style: AppTheme.text16(),

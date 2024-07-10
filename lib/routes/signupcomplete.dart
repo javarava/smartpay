@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+import '/providers/user_provider.dart';
 import '/src/theme.dart';
 
 Map? loggedinUser;
-String? userEmail;
-String? userID;
 
 class SignUpComplete extends StatefulWidget {
   const SignUpComplete({super.key});
@@ -14,11 +14,12 @@ class SignUpComplete extends StatefulWidget {
   State<SignUpComplete> createState() => _SignUpCompleteState();
 }
 
-class _SignUpCompleteState extends State<SignUpComplete>{
-  
-
+class _SignUpCompleteState extends State<SignUpComplete> {
   @override
   Widget build(BuildContext context) {
+    //Get user data from provider
+    loggedinUser = context.watch<UserProvider>().loggedinUser;
+
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
@@ -41,17 +42,14 @@ class _SignUpCompleteState extends State<SignUpComplete>{
                   height: 200,
                   animate: true,
                   repeat: false,
-                  
-                
                 ),
               ),
               const SizedBox(height: 20),
 
-              //TODO: GET NAME FROM PROVIDER
               SizedBox(
                 width: double.infinity,
                 child: Text(
-                  'Congratulations, ',
+                  'Congratulations, ${loggedinUser!['full_name']}',
                   style: AppTheme.text28ExtraBold(),
                   textAlign: TextAlign.center,
                 ),

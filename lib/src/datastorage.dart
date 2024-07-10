@@ -65,3 +65,25 @@ Future<String> readPinFile() async {
   final jsonStr = await file.readAsString();
   return jsonDecode(jsonStr);
 }
+
+//Write user token in a text file on user's device
+Future<File> writeTokenFile(String token) async {
+  final directory = await getApplicationDocumentsDirectory();
+  final localPath = directory.path;
+  final file = File('$localPath/token.txt');
+  final jsonStr = jsonEncode(token);
+  //debugPrint('Token written to file!');
+  // Write the file
+  return file.writeAsString(jsonStr);
+}
+
+//Read user token from token.txt file on user's device
+Future<String> readToken() async {
+  final directory = await getApplicationDocumentsDirectory();
+  final localPath = directory.path;
+  final file = File('$localPath/token.txt');
+  //debugPrint('Token File Path: $localPath/pin.txt');
+  final jsonStr = await file.readAsString();
+  return jsonDecode(jsonStr);
+}
+

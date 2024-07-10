@@ -6,15 +6,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
+import 'package:smartpay/src/datastorage.dart';
 import '/providers/user_provider.dart';
 import '/src/widgets.dart';
 import '/src/theme.dart';
 import '/routes/signinpin.dart';
 import '/routes/passwordrecovery.dart';
-
-Map? loggedinUser;
-String? userEmail;
-String? userID;
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -183,13 +180,13 @@ class _SignInState extends State<SignIn> {
                             ),
                             onTap: () async {
                               //PUSH TO PASSWORD RECOVERY
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (BuildContext context) =>
-                                        const PasswordRecovery(),
-                                  ),
-                                );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute<void>(
+                                  builder: (BuildContext context) =>
+                                      const PasswordRecovery(),
+                                ),
+                              );
                             },
                           ),
                         ),
@@ -267,6 +264,10 @@ class _SignInState extends State<SignIn> {
                                   //set secret token
                                   context.read<UserProvider>().setToken(token);
 
+                                  //write token to file
+                                  
+                                  writeTokenFile(token!);
+
                                   //Close Progress Dialog
                                   Navigator.of(context, rootNavigator: true)
                                       .pop();
@@ -291,6 +292,15 @@ class _SignInState extends State<SignIn> {
                                       json.decode(responseStream);
 
                                   debugPrint('Reponse: $responseJson');
+
+                                  if (responseJson['errors']['email'].contains(
+                                      'These credentials do not match our records.')) {
+                                    toastInfoLong(
+                                        'Wrong password provided. Please try again.');
+                                  } else {
+                                    toastInfoLong(
+                                        'An error occurred! Please try again.');
+                                  }
 
                                   //check if mounted
                                   if (!context.mounted) return;

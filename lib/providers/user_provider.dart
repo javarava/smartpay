@@ -15,6 +15,7 @@ class UserProvider with ChangeNotifier {
   String? userPin;
 
   String? secretToken;
+  String? tokenFromFile;
 
   Map newCountry = {};
 
@@ -22,6 +23,7 @@ class UserProvider with ChangeNotifier {
     readDetailsFromFile();
     readEmailFromFile();
     readPinFromFile();
+    readTokenFromFile();
   }
 
   //Read user details from text file on device
@@ -51,6 +53,26 @@ class UserProvider with ChangeNotifier {
         emailFromFile = '';
       } else {
         emailFromFile = emailFile;
+        //debugPrint('Email from file: $emailFromFile');
+      }
+    } catch (e) {
+      debugPrint("An error occurred! Error: ${e.toString()}");
+    }
+
+    notifyListeners();
+  }
+
+  //Read email from text file on device
+  Future<void> readTokenFromFile() async {
+    try {
+      final tokenFile = await readToken();
+      if (tokenFile.isEmpty) {
+        debugPrint('Token file does not exist or empty');
+        tokenFromFile = '';
+        secretToken = '';
+      } else {
+        tokenFromFile = tokenFile;
+        secretToken = tokenFile;
         //debugPrint('Email from file: $emailFromFile');
       }
     } catch (e) {
@@ -94,7 +116,7 @@ class UserProvider with ChangeNotifier {
 
   String? get pin => userPin;
 
-  String? get secret => secretToken; 
+  String? get secret => secretToken;
 
   //Set user
   void setUser(Map? user) {
@@ -155,6 +177,7 @@ class UserProvider with ChangeNotifier {
   //Set secret token
   void setToken(String? item) {
     secretToken = (item);
+    writeTokenFile(item!);
     notifyListeners();
   }
 
