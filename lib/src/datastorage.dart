@@ -109,3 +109,21 @@ Future<String> readPassword() async {
   final jsonStr = await file.readAsString();
   return jsonDecode(jsonStr);
 }
+
+//Clear all files in cache
+Future<void> deleteCacheDir() async {
+  final cacheDir = await getTemporaryDirectory();
+
+  if (cacheDir.existsSync()) {
+    cacheDir.deleteSync(recursive: true);
+  }
+}
+
+//Clear all files in app dir
+Future<void> deleteAppDir() async {
+  final appDir = await getApplicationSupportDirectory();
+
+  if (appDir.existsSync()) {
+    appDir.deleteSync(recursive: true);
+  }
+}

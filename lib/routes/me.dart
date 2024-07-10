@@ -71,6 +71,19 @@ class _MeState extends State<Me> {
                               ),
 
                               const SizedBox(height: 20),
+
+                              //Signout and clear all files Tab
+                              //This is used for testing purposes
+                              InkWell(
+                                child: tabWithIconTitleDesc(
+                                  Icons.logout,
+                                  'Sign Out and Clear Files',
+                                  'Sign out from ${AppTheme.appTitle()}',
+                                ),
+                                onTap: () {
+                                  showSignOutClearAlertDialog(context);
+                                },
+                              ),
                             ],
                           ),
                         ),
@@ -83,7 +96,7 @@ class _MeState extends State<Me> {
   }
 }
 
-//Alert Dialog
+//Sign out Alert Dialog
 showSignOutAlertDialog(
   BuildContext context,
 ) {
@@ -111,6 +124,80 @@ showSignOutAlertDialog(
         //Write empty files
         writeDetails({});
         writeTokenFile('');
+
+        debugPrint('User signed out!');
+
+        //check if mounted
+        if (!context.mounted) return;
+
+        //Close the dialog
+        Navigator.of(context, rootNavigator: true).pop();
+
+        goRouter.refresh();
+
+        //Pop and go to home
+        context.go('/welcome/signin');
+      } catch (e) {
+        debugPrint('An error occurred during signout! $e');
+      }
+    },
+  ); // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    backgroundColor: Colors.white,
+    title: Text(
+      'Are you sure?',
+      style: AppTheme.text20Bold(),
+    ),
+    content: Text(
+      'Are you sure you want to sign out?',
+      style: AppTheme.text16(),
+    ),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  ); // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+
+//Sign out and clear cache Alert Dialog
+showSignOutClearAlertDialog(
+  BuildContext context,
+) {
+  // set up the buttons
+  Widget cancelButton = TextButton(
+    child: Text(
+      "No",
+      style: AppTheme.text16Bold(),
+    ),
+    onPressed: () {
+      Navigator.of(context, rootNavigator: true).pop();
+    },
+  );
+  Widget continueButton = TextButton(
+    child: Text(
+      "Yes",
+      style: AppTheme.text16Bold(),
+    ),
+    onPressed: () async {
+      try {
+        //Remove user from provider
+        if (!context.mounted) return;
+        context.read<UserProvider>().logOut();
+
+        //Write empty files
+        writeDetails({});
+        writeTokenFile('');
+
+        //Clear cache and dir
+        await deleteCacheDir();
+        await deleteAppDir();
 
         debugPrint('User signed out!');
 
