@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:go_router/go_router.dart';
@@ -10,9 +11,12 @@ import '/providers/user_provider.dart';
 import '/src/widgets.dart';
 import '/src/theme.dart';
 import '/src/globals.dart' as globals;
+import '/routes/me.dart';
 
 String? pinSupplied;
 String? userPin;
+
+Map? user;
 
 class SignInPinVerify extends StatefulWidget {
   const SignInPinVerify({super.key});
@@ -43,18 +47,19 @@ class _SignInPinVerifyState extends State<SignInPinVerify> {
   );
 
   //get pin from file
-  Future<String> getPinFromFile() async {
+  Future<String> getDetailsFromFile() async {
     userPin = await readPinFile();
+    user = await readDetailsFile();
     return userPin!;
   }
 
   @override
   Widget build(BuildContext context) {
     //get saved pin
-    var uPin = getPinFromFile();
+    var files = getDetailsFromFile();
 
     return FutureBuilder(
-      future: uPin,
+      future: files,
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.data!.isNotEmpty) {
           return SafeArea(
@@ -289,6 +294,27 @@ class _SignInPinVerifyState extends State<SignInPinVerify> {
                                   textAlign: TextAlign.center,
                                 ),
                               ),
+
+                        const SizedBox(height: 40),
+
+                        SizedBox(
+                          height: 20,
+                          child: RichText(
+                            text: TextSpan(
+                              text: 'Not ${user!['full_name']}? ',
+                              style: AppTheme.text18(),
+                              children: [
+                                TextSpan(
+                                  text: 'Sign Out.',
+                                  style: AppTheme.text18BlueBold(),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap =
+                                        () => showSignOutAlertDialog(context),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
