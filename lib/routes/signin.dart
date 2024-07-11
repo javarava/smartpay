@@ -261,9 +261,7 @@ class _SignInState extends State<SignIn> {
                                   if (!context.mounted) return;
 
                                   //set user data in provider
-                                  context
-                                      .read<UserProvider>()
-                                      .setUser(userData);
+                                  //context.read<UserProvider>().setUser(userData);
 
                                   //write user details to file
                                   writeDetails(userData!);
@@ -279,17 +277,17 @@ class _SignInState extends State<SignIn> {
                                   writeTokenFile(token!);
 
                                   //check if pin exists
-                                  //Read user details from details.txt file on user's device
+                                  //Read user pin from pin.txt file on user's device
 
                                   final directory =
                                       await getApplicationDocumentsDirectory();
                                   final localPath = directory.path;
-                                  final file = File('$localPath/details.txt');
+                                  final file = File('$localPath/pin.txt');
 
                                   bool? fileExists = await file.exists();
 
                                   if (fileExists == true) {
-                                    //if yes go to SignInPin(userData!)
+                                    //if yes go to SignInPinVerify()
 
                                     //check if mounted
                                     if (!context.mounted) return;
@@ -307,7 +305,8 @@ class _SignInState extends State<SignIn> {
                                       ),
                                     );
                                   } else {
-                                    //if not set pin
+                                    //if not, set new pin
+                                    //go to set new pin
 
                                     //check if mounted
                                     if (!context.mounted) return;
@@ -317,7 +316,7 @@ class _SignInState extends State<SignIn> {
                                       context,
                                       MaterialPageRoute<void>(
                                         builder: (BuildContext context) =>
-                                            const SetNewPin(),
+                                            SetNewPin(userData),
                                       ),
                                     );
                                   }

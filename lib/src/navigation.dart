@@ -316,9 +316,13 @@ final goRouter = GoRouter(
             return null;
           }
         } else if (fileJson.containsKey('id') && !globals.isLoggedIn) {
-          return '/welcome/signinpinverify';
-        } else {
           if (signin || signup || welcome) {
+            return null;
+          } else {
+            return '/welcome/signinpinverify';
+          }
+        } else {
+          if (signin || signup || welcome || signinpinverify) {
             return null;
           } else {
             return '/welcome';
@@ -333,6 +337,32 @@ final goRouter = GoRouter(
           return '/welcome';
         }
       }
+
+      /* final detailsFile = await readDetailsFile();
+
+      //final loggedIn = Provider.of<UserProvider>(context, listen: true).loggedinUser;
+
+      debugPrint('LoggedInNav = $loggedIn');
+
+      //Initialize anonymous user routes
+      final signin = state.fullPath == '/welcome/signin';
+      final signup = state.fullPath == '/welcome/signup';
+      final welcome = state.fullPath == '/welcome';
+
+      //Check if user is logged in or not and redirect accordingly
+      if (loggedIn != null) {
+        if (signin || signup || welcome) {
+          return '/';
+        } else {
+          return null;
+        }
+      } else {
+        if (signin || signup || welcome) {
+          return null;
+        } else {
+          return '/welcome';
+        }
+      } */
     } catch (e) {
       debugPrint('An error occurred! $e');
 

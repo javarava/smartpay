@@ -5,12 +5,14 @@ import 'package:smartpay/src/datastorage.dart';
 import '/providers/user_provider.dart';
 import '/src/widgets.dart';
 import '/src/theme.dart';
+import '/src/globals.dart' as globals;
 import '/routes/signinpinverify.dart';
 
 String? userPin;
 
 class SetNewPin extends StatefulWidget {
-  const SetNewPin({super.key});
+  final Map userData;
+  const SetNewPin(this.userData, {super.key});
 
   @override
   State<SetNewPin> createState() => _SetNewPinState();
@@ -39,6 +41,9 @@ class _SetNewPinState extends State<SetNewPin> {
 
   @override
   Widget build(BuildContext context) {
+    //get user data from passed parameter
+    Map? userData = widget.userData;
+
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
@@ -150,12 +155,16 @@ class _SetNewPinState extends State<SetNewPin> {
                             //write pin in file
                             writePin(userPin!);
 
-                            Map? userDetail = Provider.of<UserProvider>(context,
-                                    listen: false)
-                                .loggedinUser;
+                            //set user in provider
+                            context.read<UserProvider>().setUser(userData);
 
                             //Save user detail in file
-                            writeDetails(userDetail!);
+                            writeDetails(userData);
+
+                            setState(() {
+                              //set global isLoggedIn
+                              globals.isLoggedIn = true;
+                            });
 
                             //PUSH TO PIN VERIFY
                             //check if mounted

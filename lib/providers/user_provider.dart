@@ -33,6 +33,7 @@ class UserProvider with ChangeNotifier {
       final detailsFile = await readDetailsFile();
       if (detailsFile.isEmpty) {
         //debugPrint('User details file does not exist or empty');
+        globals.isLoggedIn = false;
         loggedinUser = null;
         notifyListeners();
       } else {

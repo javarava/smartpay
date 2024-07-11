@@ -23,76 +23,74 @@ class _MeState extends State<Me> {
     //Get user data from provider
     loggedinUser = context.watch<UserProvider>().loggedinUser;
 
-    return loggedinUser != null
-        ? SafeArea(
-            child: Scaffold(
-                resizeToAvoidBottomInset: false,
-                body: NestedScrollView(
-                  headerSliverBuilder:
-                      (BuildContext context, bool innerBoxIsScrolled) {
-                    return [
-                      const SliverAppBar(
-                        title: Text('Me'),
-                        expandedHeight: 46,
-                        toolbarHeight: 46,
-                        floating: true,
-                        snap: true,
-                      )
-                    ];
-                  },
-                  body: Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 12, 15, 5),
+    return SafeArea(
+      child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: NestedScrollView(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return [
+                const SliverAppBar(
+                  title: Text('Me'),
+                  expandedHeight: 46,
+                  toolbarHeight: 46,
+                  floating: true,
+                  snap: true,
+                )
+              ];
+            },
+            body: Padding(
+              padding: const EdgeInsets.fromLTRB(15, 12, 15, 5),
+              child: Column(
+                children: [
+                  Expanded(
                     child: Column(
                       children: [
-                        Expanded(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                width: double.infinity,
-                                child: Text(
-                                  "${displayGreeting()}, ${loggedinUser!['full_name']}!",
-                                  style: AppTheme.text18Bold(),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-
-                              const SizedBox(height: 20),
-
-                              //Signout Tab
-                              InkWell(
-                                child: tabWithIconTitleDesc(
-                                  Icons.logout,
-                                  'Sign Out',
-                                  'Sign out from ${AppTheme.appTitle()}',
-                                ),
-                                onTap: () {
-                                  showSignOutAlertDialog(context);
-                                },
-                              ),
-
-                              const SizedBox(height: 20),
-
-                              //Signout and clear all files Tab
-                              //This is used for testing purposes
-                              InkWell(
-                                child: tabWithIconTitleDesc(
-                                  Icons.logout,
-                                  'Sign Out and Clear Files',
-                                  'Sign out from ${AppTheme.appTitle()}',
-                                ),
-                                onTap: () {
-                                  showSignOutClearAlertDialog(context);
-                                },
-                              ),
-                            ],
+                        SizedBox(
+                          width: double.infinity,
+                          child: Text(
+                            "${displayGreeting()}, ${loggedinUser!['full_name']}!",
+                            style: AppTheme.text18Bold(),
+                            textAlign: TextAlign.left,
                           ),
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        //Signout Tab
+                        InkWell(
+                          child: tabWithIconTitleDesc(
+                            Icons.logout,
+                            'Sign Out',
+                            'Sign out from ${AppTheme.appTitle()}',
+                          ),
+                          onTap: () {
+                            showSignOutAlertDialog(context);
+                          },
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        //Signout and clear all files Tab
+                        //This is used for testing purposes
+                        InkWell(
+                          child: tabWithIconTitleDesc(
+                            Icons.logout,
+                            'Sign Out and Clear Files',
+                            'Sign out from ${AppTheme.appTitle()}',
+                          ),
+                          onTap: () {
+                            showSignOutClearAlertDialog(context);
+                          },
                         ),
                       ],
                     ),
                   ),
-                )),
-          )
-        : Container();
+                ],
+              ),
+            ),
+          )),
+    );
   }
 }
 
@@ -164,7 +162,6 @@ showSignOutAlertDialog(
     },
   );
 }
-
 
 //Sign out and clear cache Alert Dialog
 showSignOutClearAlertDialog(
