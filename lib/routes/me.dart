@@ -73,7 +73,7 @@ class _MeState extends State<Me> {
 
                         //Signout and clear all files Tab
                         //This is used for testing purposes
-                        InkWell(
+                        /* InkWell(
                           child: tabWithIconTitleDesc(
                             Icons.logout,
                             'Sign Out and Clear Files',
@@ -82,7 +82,7 @@ class _MeState extends State<Me> {
                           onTap: () {
                             showSignOutClearAlertDialog(context);
                           },
-                        ),
+                        ), */
                       ],
                     ),
                   ),
